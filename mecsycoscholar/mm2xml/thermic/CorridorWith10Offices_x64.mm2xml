@@ -1,0 +1,235 @@
+multimodel CorridorWith10Offices_x64
+	
+	submodels 
+		name Office1 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office2 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office3 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office4 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office5 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office6 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office7 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office8 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office9 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Office10 path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name Corridor path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name OuterWallCorridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall1Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall2Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall3Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall4Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall5Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall6Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall7Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall8Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall9Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall10Corridor path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall1 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall2 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall3 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall4 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall5 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall6 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall7 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall8 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall9 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OuterWall10 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall1_2 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall2_3 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall3_4 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall4_5 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall5_6 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall6_7 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall7_8 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall8_9 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name Wall9_10 path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+
+	
+	interface
+		parameters
+			//HeatedRoom
+			VolumeOffices:30. refers to 
+				(Office1: "V") (Office2: "V") (Office3: "V") (Office4: "V") (Office5: "V") 
+				(Office6: "V") (Office7: "V") (Office8: "V") (Office9: "V") (Office10: "V")//Volume of the room
+			VolumeCorridor:225 refers to (Corridor:"V")
+			VolumicHeatCapacityOffices:6000. refers to  
+				(Office1: "VolumicHeatCapacity") (Office2: "VolumicHeatCapacity") 
+				(Office3: "VolumicHeatCapacity") (Office4: "VolumicHeatCapacity") 
+				(Office5: "VolumicHeatCapacity") (Office6: "VolumicHeatCapacity") 
+				(Office7: "VolumicHeatCapacity") (Office8: "VolumicHeatCapacity") 
+				(Office9: "VolumicHeatCapacity") (Office10: "VolumicHeatCapacity")//Volumic heat capacity of the room
+			VolumicHeatCapacityCorridor:3000. refers to (Corridor:"VolumicHeatCapacity")
+			TextInit: 288.15 refers to 
+				(OuterWall1: "T_b") (OuterWall2: "T_b") (OuterWall3: "T_b") (OuterWall4: "T_b") 
+				(OuterWall5: "T_b") (OuterWall6: "T_b") (OuterWall7: "T_b") (OuterWall8: "T_b")
+				(OuterWall9: "T_b") (OuterWall10: "T_b") (OuterWallCorridor: "T_b")//Initial temperature of the exterior
+			Tinit: 293.15 refers to 
+				(Office1: "Tinit") (Office2: "Tinit") (Office3: "Tinit") (Office4: "Tinit") 
+				(Office5: "Tinit") (Office6: "Tinit") (Office7: "Tinit") (Office8: "Tinit") 
+				(Office9: "Tinit") (Office10: "Tinit") (Corridor:"Tinit")//Initial temperature of the offices
+				(Wall1Corridor:"T_a") (Wall1Corridor:"T_b") (Wall2Corridor:"T_a") (Wall2Corridor:"T_b")
+				(Wall3Corridor:"T_a") (Wall3Corridor:"T_b") (Wall4Corridor:"T_a") (Wall4Corridor:"T_b")
+				(Wall5Corridor:"T_a") (Wall5Corridor:"T_b") (Wall6Corridor:"T_a") (Wall6Corridor:"T_b")
+				(Wall7Corridor:"T_a") (Wall7Corridor:"T_b") (Wall8Corridor:"T_a") (Wall8Corridor:"T_b")
+				(Wall9Corridor:"T_a") (Wall9Corridor:"T_b") (Wall10Corridor:"T_a") (Wall10Corridor:"T_b")
+				(OuterWall1: "T_a") (OuterWall2: "T_a") (OuterWall3: "T_a") (OuterWall4: "T_a") 
+				(OuterWall5: "T_a") (OuterWall6: "T_a") (OuterWall7: "T_a") (OuterWall8: "T_a")
+				(OuterWall9: "T_a") (OuterWall10: "T_a") (OuterWallCorridor: "T_a")
+			Twanted:293.15 refers to 
+				(Office1: "Twanted") (Office2: "Twanted") (Office3: "Twanted") (Office4: "Twanted") 
+				(Office5: "Twanted") (Office6: "Twanted") (Office7: "Twanted") (Office8: "Twanted") 
+				(Office9: "Twanted") (Office10: "Twanted") (Corridor: "Twanted")
+			tolerance:1. refers to 
+				(Office1: "tolerance") (Office2: "tolerance") (Office3: "tolerance") (Office4: "tolerance") 
+				(Office5: "tolerance") (Office6: "tolerance") (Office7: "tolerance") (Office8: "tolerance") 
+				(Office9: "tolerance") (Office10: "tolerance") (Corridor:"tolerance")
+			maxHeatflow:150. refers to 
+				(Office1: "maxHeatflow") (Office2: "maxHeatflow") (Office3: "maxHeatflow") (Office4: "maxHeatflow") 
+				(Office5: "maxHeatflow") (Office6: "maxHeatflow") (Office7: "maxHeatflow") (Office8: "maxHeatflow") 
+				(Office9: "maxHeatflow") (Office10: "maxHeatflow")
+			maxHeatflowCorridor:300. refers to (Corridor:"maxHeatflow")
+			//Walls
+			SOuterWalls2To9:7.5 refers to
+				(OuterWall2:"S") (OuterWall3:"S") (OuterWall4:"S") (OuterWall5:"S") 
+				(OuterWall6:"S") (OuterWall7:"S") (OuterWall8:"S") (OuterWall9:"S")
+				(Wall1Corridor:"S") (Wall2Corridor:"S") (Wall3Corridor:"S") (Wall4Corridor:"S") (Wall5Corridor:"S") 
+				(Wall6Corridor:"S") (Wall7Corridor:"S") (Wall8Corridor:"S") (Wall9Corridor:"S") (Wall10Corridor:"S") 
+			SOuterWalls1And10:17.5 refers to (OuterWall1:"S") (OuterWall10:"S")
+			SOuterWallCorridor:95. refers to (OuterWallCorridor:"S")
+			OuterWallLambda:0.7 refers to 
+				(OuterWall1: "lambda") (OuterWall2: "lambda") (OuterWall3:"lambda")
+				(OuterWall4: "lambda") (OuterWall5: "lambda") (OuterWall6:"lambda")
+				(OuterWall7: "lambda") (OuterWall8: "lambda") (OuterWall9:"lambda")
+				(OuterWall10: "lambda") (OuterWallCorridor: "lambda")  //Thermic resistance of the outer walls
+			InnerWallLambda:0.3 refers to 
+				(Wall1Corridor: "lambda") (Wall2Corridor: "lambda") (Wall3Corridor:"lambda")
+				(Wall4Corridor: "lambda") (Wall5Corridor: "lambda") (Wall6Corridor:"lambda")
+				(Wall7Corridor: "lambda") (Wall8Corridor: "lambda") (Wall9Corridor:"lambda")
+				(Wall10Corridor: "lambda") (Wall1_2:"lambda") (Wall2_3:"lambda")
+				(Wall3_4:"lambda") (Wall4_5:"lambda") (Wall5_6:"lambda") (Wall6_7:"lambda") 
+				(Wall7_8:"lambda") (Wall8_9:"lambda") (Wall9_10:"lambda")			
+		inputs
+		//A revoir, il faudrait pouvoir agr�ger les entr�es, mais modifier le GenericMMAgent avant
+			Text1:Double refers to (OuterWall1:"T_b") 
+			Text2:Double refers to (OuterWall2:"T_b")
+			Text3:Double refers to (OuterWall3:"T_b")
+			Text4:Double refers to (OuterWall4:"T_b")
+			Text5:Double refers to (OuterWall5:"T_b")
+			Text6:Double refers to (OuterWall6:"T_b")
+			Text7:Double refers to (OuterWall7:"T_b")
+			Text8:Double refers to (OuterWall8:"T_b")
+			Text9:Double refers to (OuterWall9:"T_b")
+			Text10:Double refers to (OuterWall10:"T_b")
+			TextCorridor:Double refers to (OuterWallCorridor:"T_b")
+		outputs
+			TOffice1:Double refers to (Office1:"Troom")
+			TOffice2:Double refers to (Office2:"Troom")
+			TOffice3:Double refers to (Office3:"Troom")
+			TOffice4:Double refers to (Office4:"Troom")
+			TOffice5:Double refers to (Office5:"Troom")
+			TOffice6:Double refers to (Office6:"Troom")
+			TOffice7:Double refers to (Office7:"Troom")
+			TOffice8:Double refers to (Office8:"Troom")
+			TOffice9:Double refers to (Office9:"Troom")
+			TOffice10:Double refers to (Office10:"Troom")
+			TCorridor:Double refers to (Corridor:"Troom")
+			PowerConsumed1:Double refers to (Office1:"PowerConsumed")
+			PowerConsumed2:Double refers to (Office2:"PowerConsumed")
+			PowerConsumed3:Double refers to (Office3:"PowerConsumed")
+			PowerConsumed4:Double refers to (Office4:"PowerConsumed")
+			PowerConsumed5:Double refers to (Office5:"PowerConsumed")
+			PowerConsumed6:Double refers to (Office6:"PowerConsumed")
+			PowerConsumed7:Double refers to (Office7:"PowerConsumed")
+			PowerConsumed8:Double refers to (Office8:"PowerConsumed")
+			PowerConsumed9:Double refers to (Office9:"PowerConsumed")
+			PowerConsumed10:Double refers to (Office10:"PowerConsumed")
+			PowerConsumedCorridor:Double refers to (Corridor:"PowerConsumed")
+			
+	internal couplings
+		{Office1."Troom" -> Wall1_2."T_a"} {Office2."Troom" -> Wall1_2."T_b"}
+		{Office2."Troom" -> Wall2_3."T_a"} {Office3."Troom" -> Wall2_3."T_b"}
+		{Office3."Troom" -> Wall3_4."T_a"} {Office4."Troom" -> Wall3_4."T_b"}
+		{Office4."Troom" -> Wall4_5."T_a"} {Office5."Troom" -> Wall4_5."T_b"}
+		{Office5."Troom" -> Wall5_6."T_a"} {Office6."Troom" -> Wall5_6."T_b"}
+		{Office6."Troom" -> Wall6_7."T_a"} {Office7."Troom" -> Wall6_7."T_b"}
+		{Office7."Troom" -> Wall7_8."T_a"} {Office8."Troom" -> Wall7_8."T_b"}
+		{Office8."Troom" -> Wall8_9."T_a"} {Office9."Troom" -> Wall8_9."T_b"}
+		{Office9."Troom" -> Wall9_10."T_a"} {Office10."Troom" -> Wall9_10."T_b"}
+		{Office1."Troom" -> Wall1Corridor."T_a"} {Corridor."Troom" -> Wall1Corridor."T_b"}
+		{Office2."Troom" -> Wall2Corridor."T_a"} {Corridor."Troom" -> Wall2Corridor."T_b"}
+		{Office3."Troom" -> Wall3Corridor."T_a"} {Corridor."Troom" -> Wall3Corridor."T_b"}
+		{Office4."Troom" -> Wall4Corridor."T_a"} {Corridor."Troom" -> Wall4Corridor."T_b"}
+		{Office5."Troom" -> Wall5Corridor."T_a"} {Corridor."Troom" -> Wall5Corridor."T_b"}
+		{Office6."Troom" -> Wall6Corridor."T_a"} {Corridor."Troom" -> Wall6Corridor."T_b"}
+		{Office7."Troom" -> Wall7Corridor."T_a"} {Corridor."Troom" -> Wall7Corridor."T_b"}
+		{Office8."Troom" -> Wall8Corridor."T_a"} {Corridor."Troom" -> Wall8Corridor."T_b"}
+		{Office9."Troom" -> Wall9Corridor."T_a"} {Corridor."Troom" -> Wall9Corridor."T_b"}
+		{Office10."Troom" -> Wall10Corridor."T_a"} {Corridor."Troom" -> Wall10Corridor."T_b"}
+		{Office1."Troom" -> OuterWall1."T_a"}
+		{Office2."Troom" -> OuterWall2."T_a"}
+		{Office3."Troom" -> OuterWall3."T_a"}
+		{Office4."Troom" -> OuterWall4."T_a"}
+		{Office5."Troom" -> OuterWall5."T_a"}
+		{Office6."Troom" -> OuterWall6."T_a"}
+		{Office7."Troom" -> OuterWall7."T_a"}
+		{Office8."Troom" -> OuterWall8."T_a"}
+		{Office9."Troom" -> OuterWall9."T_a"}
+		{Office10."Troom" -> OuterWall10."T_a"}
+		{Corridor."Troom" -> OuterWallCorridor."T_a"}
+		{aggregation SumDouble, (Wall1_2."Q_a", OuterWall1."Q_a", Wall1Corridor."Q_a") -> (Office1."Qext")}
+		{aggregation SumDouble, (Wall1_2."Q_b", Wall2_3."Q_a", OuterWall2."Q_a", Wall2Corridor."Q_a") -> (Office2."Qext")}
+		{aggregation SumDouble, (Wall2_3."Q_b", Wall3_4."Q_a", OuterWall3."Q_a", Wall3Corridor."Q_a") -> (Office3."Qext")}
+		{aggregation SumDouble, (Wall3_4."Q_b", Wall4_5."Q_a", OuterWall4."Q_a", Wall4Corridor."Q_a") -> (Office4."Qext")}
+		{aggregation SumDouble, (Wall4_5."Q_b", Wall5_6."Q_a", OuterWall5."Q_a", Wall5Corridor."Q_a") -> (Office5."Qext")}
+		{aggregation SumDouble, (Wall5_6."Q_b", Wall6_7."Q_a", OuterWall6."Q_a", Wall6Corridor."Q_a") -> (Office6."Qext")}
+		{aggregation SumDouble, (Wall6_7."Q_b", Wall7_8."Q_a", OuterWall7."Q_a", Wall7Corridor."Q_a") -> (Office7."Qext")}
+		{aggregation SumDouble, (Wall7_8."Q_b", Wall8_9."Q_a", OuterWall8."Q_a", Wall8Corridor."Q_a") -> (Office8."Qext")}
+		{aggregation SumDouble, (Wall8_9."Q_b", Wall9_10."Q_a", OuterWall9."Q_a", Wall9Corridor."Q_a") -> (Office9."Qext")}
+		{aggregation SumDouble, (Wall9_10."Q_b", OuterWall10."Q_a", Wall10Corridor."Q_a") -> (Office10."Qext")}
+		{aggregation SumDouble, (Wall1Corridor."Q_b", Wall2Corridor."Q_b", Wall3Corridor."Q_b", Wall4Corridor."Q_b", Wall5Corridor."Q_b", Wall6Corridor."Q_b", Wall7Corridor."Q_b", Wall8Corridor."Q_b", Wall9Corridor."Q_b", Wall10Corridor."Q_b", OuterWallCorridor."Q_a") -> (Corridor."Qext")}
+	
+	information
+		keywords "Thermic" "Example"
+		description 
+"Multimodel of ten successive room s accessible by a common corridor. 
+The heat flow is computed through a Wall model (just a thermal resistance).
+This model shows how hard it can be to connect several model at the same level."
+
+	simulator
+		simulation variables
+			stopTime:86400. refers to 
+				(Office1:"stopTime") (OuterWall1:"stopTime") (Wall1_2:"stopTime") (Wall1Corridor:"stopTime")
+				(Office2:"stopTime") (OuterWall2:"stopTime") (Wall2_3:"stopTime") (Wall2Corridor:"stopTime")
+				(Office3:"stopTime") (OuterWall3:"stopTime") (Wall3_4:"stopTime") (Wall3Corridor:"stopTime")
+				(Office4:"stopTime") (OuterWall4:"stopTime") (Wall4_5:"stopTime") (Wall4Corridor:"stopTime")
+				(Office5:"stopTime") (OuterWall5:"stopTime") (Wall5_6:"stopTime") (Wall5Corridor:"stopTime")
+				(Office6:"stopTime") (OuterWall6:"stopTime") (Wall6_7:"stopTime") (Wall6Corridor:"stopTime")
+				(Office7:"stopTime") (OuterWall7:"stopTime") (Wall7_8:"stopTime") (Wall7Corridor:"stopTime")
+				(Office8:"stopTime") (OuterWall8:"stopTime") (Wall8_9:"stopTime") (Wall8Corridor:"stopTime")
+				(Office9:"stopTime") (OuterWall9:"stopTime") (Wall9_10:"stopTime") (Wall9Corridor:"stopTime")
+				(Office10:"stopTime") (OuterWall10:"stopTime") (Wall10Corridor:"stopTime")
+				(Corridor:"stopTime") (OuterWallCorridor:"stopTime")
+			timeStep:60. refers to 
+				(Office1:"timeStep") (OuterWall1:"timeStep") (Wall1_2:"timeStep") (Wall1Corridor:"timeStep")
+				(Office2:"timeStep") (OuterWall2:"timeStep") (Wall2_3:"timeStep") (Wall2Corridor:"timeStep")
+				(Office3:"timeStep") (OuterWall3:"timeStep") (Wall3_4:"timeStep") (Wall3Corridor:"timeStep")
+				(Office4:"timeStep") (OuterWall4:"timeStep") (Wall4_5:"timeStep") (Wall4Corridor:"timeStep")
+				(Office5:"timeStep") (OuterWall5:"timeStep") (Wall5_6:"timeStep") (Wall5Corridor:"timeStep")
+				(Office6:"timeStep") (OuterWall6:"timeStep") (Wall6_7:"timeStep") (Wall6Corridor:"timeStep")
+				(Office7:"timeStep") (OuterWall7:"timeStep") (Wall7_8:"timeStep") (Wall7Corridor:"timeStep")
+				(Office8:"timeStep") (OuterWall8:"timeStep") (Wall8_9:"timeStep") (Wall8Corridor:"timeStep")
+				(Office9:"timeStep") (OuterWall9:"timeStep") (Wall9_10:"timeStep") (Wall9Corridor:"timeStep")
+				(Office10:"timeStep") (OuterWall10:"timeStep") (Wall10Corridor:"timeStep")
+				(Corridor:"timeStep") (OuterWallCorridor:"timeStep")
+			startTime:0. refers to
+				(Office1:"startTime") (OuterWall1:"startTime") (Wall1_2:"startTime") (Wall1Corridor:"startTime")
+				(Office2:"startTime") (OuterWall2:"startTime") (Wall2_3:"startTime") (Wall2Corridor:"startTime")
+				(Office3:"startTime") (OuterWall3:"startTime") (Wall3_4:"startTime") (Wall3Corridor:"startTime")
+				(Office4:"startTime") (OuterWall4:"startTime") (Wall4_5:"startTime") (Wall4Corridor:"startTime")
+				(Office5:"startTime") (OuterWall5:"startTime") (Wall5_6:"startTime") (Wall5Corridor:"startTime")
+				(Office6:"startTime") (OuterWall6:"startTime") (Wall6_7:"startTime") (Wall6Corridor:"startTime")
+				(Office7:"startTime") (OuterWall7:"startTime") (Wall7_8:"startTime") (Wall7Corridor:"startTime")
+				(Office8:"startTime") (OuterWall8:"startTime") (Wall8_9:"startTime") (Wall8Corridor:"startTime")
+				(Office9:"startTime") (OuterWall9:"startTime") (Wall9_10:"startTime") (Wall9Corridor:"startTime")
+				(Office10:"startTime") (OuterWall10:"startTime") (Wall10Corridor:"startTime")
+				(Corridor:"startTime") (OuterWallCorridor:"startTime")
+

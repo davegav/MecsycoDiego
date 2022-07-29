@@ -1,0 +1,26 @@
+model SmartConditioner type "mecsycoscholar.application.thermic.model.SmartConditionerModelArtifact"
+
+interface
+	parameters
+		Twanted:293.15
+		tolerance:1.
+		maxHeatflow:200. //Used to heat or to cool down
+		Troom_init:293.15
+	inputs 
+		Troom:Double initOption parameter
+	outputs
+		Qroom:Double initOption no default value 0. 
+		PowerConsumed:Double initOption no default value 0.
+
+information
+	keywords "Thermic" "Smart" "Conditioner"
+	description "Basic regulator used to show the integration of a new model artifact in a MECSYCO co-simulation."
+
+simulator
+	simulation variables 
+		stopTime:86400.
+		startTime:0.
+		timeStep:1. 
+/* 		minPropagationDelay not requested as the model does not react to input events, it sends an event every time step.*/
+	
+	

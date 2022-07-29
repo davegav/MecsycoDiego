@@ -1,0 +1,39 @@
+co-simulation TestOneFloorRealOutdoorTemperature_x64
+model path "Library/Multimodel/CorridorWith10OfficesSubmittedToRealOutdoorTemperature_x64.xml" 
+parameters 
+	//ConditionedRooms
+	VolumeOffices=30. //Volume of the room
+	VolumeCorridor=225. //Volume of the corridor
+	VolumicHeatCapacityOffices=50000. //Volumic heat capacity of the room
+	VolumicHeatCapacityCorridor=30000. //Volumic heat capacity of the corridor
+	Tinit= 293.15 //Initial temperature in rooms
+	Twanted=293.15 //Setpoint temperature
+	tolerance=1.  //Tolerance on the indoor temperature
+	maxHeatflow=1500. //Max heatflow  of the air conditioners in rooms
+	maxHeatflowCorridor=7500. //Max heatflow  of the air conditioners in the corridor
+	//Walls
+	TextInit= 288.15 //Initial temperature of the outside
+	SOuterWalls2To9=7.5 //Outer wall surface for room 2 to 9
+	SOuterWalls1And10=17.5 //Outer wall surface for room 1 and 10
+	SOuterWallCorridor=95. ////Outer wall surface for the corridor
+	OuterWallLambda=3. //Thermic resistance of the outer walls
+	InnerWallLambda=7.	//Thermic resistance of the inner walls
+	//Outdoor temperature (real data) 
+	dbName="stationMeteo.db" 
+	startDate="2019-08-02" 
+	endDate="2019-08-04"
+				
+information keywords "FMU" "Thermal"
+description
+"Example used in Thomas Paris' thesis to exemplify hierarchical multi-model design.
+This multimodel represents one corridor linked to 10 offices, it is the last step of the thermal example.
+This multimodel is designed in a hierarchical way (room, heated room, floor).
+It contains 11 submodels Room, each Room is composed of one FMU and on Java ad-hoc air conditioner controller.
+The outside temperature comes from an SQL database, these data were collected by APHEEN.
+Each connection between rooms, and between room and outdoor temperature is represented by wall models (FMU).
+Finally there are 41 FMU (11 for rooms, 30 for walls), 11 Java ad-hoc models and one SQL source model."
+
+simulation parameters
+		stopTime=8640. 
+		timeStep=120. 
+		startTime=0. 

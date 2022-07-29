@@ -1,0 +1,13 @@
+co-simulation TestTrafficGridExperiment
+
+//Minimal experiment example
+model path "Library/Multimodel/TrafficGridExample.xml"
+
+information description "Minimal example of an experiment using 4 NetLogo models and using all default model parameters.
+We see four NetLogo Traffic models which are connected together, but the tore isn't complete and one model let the cars escape."
+
+simulation parameters
+	stopTime=0.01
+	discretization=0.001  
+	windowHeight=520 
+	windowWidth=520

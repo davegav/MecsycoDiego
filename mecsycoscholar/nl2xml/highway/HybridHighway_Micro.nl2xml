@@ -1,0 +1,24 @@
+model Micro version "1.0"
+path "My Models/netlogo/Traffic-2Roads-100.nlogo" 
+
+interface
+	inputs
+		in:Vector<String, String> loop command "create-cars 1 [set shape \"car\" setxy min-pxcor 0 set heading %s 
+            set color blue set speed %s set speed-limit 1 set speed-min  0]"
+	outputs
+		out:Vector<String, String, String, String> report TurtleSet["xcor", "ycor", "heading", 
+			"speed"] "turtles with [not hidden?]" //Vector of turtles identified by their attributes
+		outEvent:Vector<String> report TurtleSet["speed"] "turtles with [hidden?]"
+information
+	description
+		"Multi-agent model in the hybrid highway example. Represent a highway with a single road.
+The maximum speed is 100 km/h
+The time must be adapted, each step of the model must represent 0.00004 hour
+The road is 0.4 km long
+Each patch represents 0.004 km"
+simulator
+	simulation variables
+		stopTime:1000.
+		discretization:1. 
+		windowHeight:230 
+		windowWidth:1250 

@@ -1,0 +1,27 @@
+model Event type "mecsycoscholar.application.highway.model.event.EventModelArtifact"
+
+interface 
+	parameters 
+		road_length:2.
+		max_speed:90.
+		min_speed:50.
+//		number_output_port:1 //Default in the example, as we only need one output. Must be changed for the interstage example.
+		initial_car_number:20
+		headless:false
+	inputs 
+		in0:Tuple(Double, Integer, String) //(speed, count, color)
+	outputs
+		observation:Double //Number of car
+		state:Vector<Double,Double,Integer,String> //All scheduled events
+		out0:Tuple(Double, Integer, String) //(speed, count, color)
+
+information
+	description "Traffic model used in the hybrid highway example for the MECSYCO middleware. 
+The explanation can be found in the PhD Thesis of Benjamin Camus."
+
+simulator
+	simulation variables
+		stopTime:1.
+		startTime:0.
+		minPropagationDelay:0.022222222222222223 //road_length/max_speed
+		autoCloseGui:false

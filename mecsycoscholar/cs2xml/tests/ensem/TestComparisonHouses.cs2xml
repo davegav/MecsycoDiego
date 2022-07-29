@@ -1,0 +1,43 @@
+co-simulation TestComparisonHouses 
+
+model path "Library/Multimodel/ComparisonHouseWithAndWithoutAirConditioner.xml"
+parameters 
+	//Initial value for the House
+	Tinit=298.15  //inside the rooms
+	TextInit=298.15 //on the outer face of walls (keep this equal to Tinit)
+	
+	//Controller parameters
+	maxTemp1=298.15
+	minTemp1=293.15 
+	maxTemp2=298.15
+	minTemp2=293.15 
+	maxTemp3=298.15 
+	minTemp3=293.15 
+	Temp1=294.15 
+	Temp2=294.15 
+	Temp3=294.15 
+	//Initial values of the controller's command
+	Pow1=0. 
+	Pow2=0. 
+	Pow3=0. 
+	//Maximum power allowed
+	maxPow1=250. 
+	maxPow2=125. 
+	maxPow3=125. 
+	//Represents the time between each controller's command
+	step=720. 
+			
+	information description "Model representing two houses submitted to outdoor temperature. 
+The first house is passive while the second one contains an air conditioner which tries to maintain the temperature.
+A weather database is used to get the outdoor temperature, the data were collected by APHEEN.
+This multimodel is used during a student practice at ENSEM for the co-simulation course, it enables to exemplify co-simulation and heterogeneity handling.
+Models : 
+-1 SQL database as source model for the weather.
+-2 FMU for Houses, exported from OpenModelica and built using the BuildSysPro library from EDF R&amp;D.
+-1 Java ad-hoc model for the controller (note that a Matlab version of this controller exists).
+"
+	
+	simulation parameters
+		stopTime=600. 
+		timeStep=180.  //Time step for the House simulation
+ 		commStep=1  // Number of time steps between each communication time, keep 1.

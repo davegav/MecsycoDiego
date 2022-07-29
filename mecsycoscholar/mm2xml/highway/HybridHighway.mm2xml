@@ -1,0 +1,60 @@
+multimodel HybridHighway
+ 
+submodels
+	name Micro path "Library/NetLogo/Micro.xml" 
+	name Event path "Library/Basic/Event.xml"
+	name Cell path "Library/Basic/Cell.xml" 
+
+interface
+	parameters	
+		//Cell parameters
+		length:0.2 refers to (Cell:"length")
+		density:30. refers to (Cell:"density")
+		speed:70. refers to (Cell:"speed")
+		free_speed:100. refers to (Cell:"free_speed")
+		capacity:1800. refers to (Cell:"capacity")
+		critical_density:45. refers to (Cell:"critical_density")
+		nb_voie:3 refers to (Cell:"nb_voie")
+		tau:1. refers to (Cell:"tau")
+		kappa:1. refers to (Cell:"kappa")
+		nu:1. refers to (Cell:"nu")
+		nbCells:5 refers to (Cell:"nbCells")
+		delay:1 refers to (Cell:"delay")
+		//Event
+		road_length:2. refers to (Event:"road_length")
+		max_speed:90. refers to (Event:"max_speed")
+		min_speed:50. refers to (Event:"min_speed")
+		initial_car_number:20 refers to (Event:"initial_car_number")
+		headless:false refers to (Event:"headless")
+		
+	outputs
+		obsCell:Double refers to (Cell:"observation") //Get the number of vehicles
+		obsCell1OutputFlow:Double refers to (Cell:"downstream") //Get the output flow
+		obsEvent:Double refers to (Event:"observation") //Get the number of vehicles
+		obsMicro:Vector<String, String, String, String> 
+			refers to (Micro:"out") //Get all agents to count the vehicles
+internal couplings
+	{Micro."out"->Cell."upstream" time operation multiply 0.00004 //Time operation multiply by the time step of the micro model
+		event operation "mecsycoscholar.application.highway.operation.Turtles2Flow" 
+			micro_max_speed=100. 
+			micro_length=0.4 
+			macro_length=0.2 
+			patch_length=0.004
+	} 
+	{Cell."downstream"->Event."in0" 
+		event operation "mecsycoscholar.application.highway.operation.FlowRate2Group" 
+			macro_time_step=0.0001
+	}
+	{Event."out0"->Micro."in" time operation divide 0.00004 //Time operation division by the time step of the micro model
+		event operation "mecsycoscholar.application.highway.operation.Group2Turtle"
+			microMaxSpeed=100.
+	}
+
+simulator
+	simulation variables
+		stopTime:0.04 refers to (Event:"stopTime") (Cell:"stopTime")
+		stopTimeMicro:1000. refers to (Micro:"stopTime") //stopTime : 0.00004
+		startTime:0. refers to (Event:"startTime") (Cell:"startTime")
+		timeStep:0.0001 refers to (Cell:"time_step")
+		minPropagationDelayEventModel:0.022222222222222223 refers to (Event:"minPropagationDelay") //Computed -> equal to road length / max speed
+		autoCloseGui:false refers to (Event:"autoCloseGui") (Cell:"autoCloseGui")

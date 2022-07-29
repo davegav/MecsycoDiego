@@ -1,0 +1,24 @@
+co-simulation LorenzCoSimulationXY_Z
+model
+	path "Library/Multimodel/LorenzMultimodelXY_Z.xml" 
+	parameters
+		a=10.
+		b=28.
+		c=2.67
+		x_init=2.
+		y_init=2. 
+		z_init=8. 
+observing 
+	artifact 3D ports X:x Y:y Z:z display postmortem
+	artifact TX ports x y z display live
+
+information 
+	keywords "Lorenz" "Chaotic" "Test"
+	description "Simple example of Lorenz co-simulation with FMU, designed in a hierarchical way.
+We have a first multimodel which contains the equations for X and Y, it is reused as a whole to connect it to a third FMU for the Z equation."
+
+simulation
+	parameters
+		stopTime=10.
+		timeStep=0.01
+		commStep=1

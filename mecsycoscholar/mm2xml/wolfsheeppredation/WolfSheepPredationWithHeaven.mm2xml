@@ -1,0 +1,35 @@
+multimodel WolfSheepPredationWithHeaven version "1.0"
+
+submodels 
+	name Origin path "Library/NetLogo/WolfSheepPredationExample.xml" 
+	name TruckRoad path "Library/NetLogo/Truck.xml" 
+	name Heaven path "Library/NetLogo/WolfSheepPredationExample.xml"
+	
+interface
+	parameters
+		g_shape:"truck" refers to (TruckRoad:"g_shape")
+		g_color:105 refers to (TruckRoad:"g_color")
+		grass:true refers to (Origin : "grass") (Heaven : "grass")
+		grass_regrowth_time : 10 refers to (Origin : "grass_regrowth_time") (Heaven : "grass_regrowth_time")
+		initial_number_sheep : 100 refers to (Origin : "initial_number_sheep")
+		initial_number_wolves : 50 refers to (Origin : "initial_number_wolves")
+		initial_number_sheep_heaven : 0 refers to (Heaven : "initial_number_sheep")
+		initial_number_wolves_heaven : 0 refers to (Heaven : "initial_number_wolves")
+	outputs
+		nb_sheep : Double refers to (Origin : "nb_sheep")
+		nb_wolves : Double refers to (Origin : "nb_wolves")
+		nb_grass : Double refers to (Origin : "nb_grass")
+		nb_sheep_heaven : Double refers to (Heaven : "nb_sheep")
+		nb_wolves_heaven : Double refers to (Heaven : "nb_wolves")
+		nb_grass_heaven : Double refers to (Heaven : "nb_grass")
+ 
+		
+internal couplings 
+	{Origin."sheep_escaping" -> TruckRoad."left_in"}
+	{TruckRoad."right_out" -> Heaven."sheep_loop_arrival"}
+	
+
+simulator
+	simulation variables
+		stopTime: 10000. refers to (Origin : "stopTime") (Heaven : "stopTime") (TruckRoad : "stopTime")
+		discretization: 1. refers to (Origin : "discretization") (Heaven : "discretization") (TruckRoad : "discretization")

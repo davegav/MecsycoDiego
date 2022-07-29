@@ -1,0 +1,41 @@
+co-simulation TestExperimentHybridHighway
+
+model path "Library/Multimodel/HybridHighway.xml"
+	parameters
+		//Cell parameters
+		length=0.2
+		density=30.
+		speed=70.
+		free_speed=100. 
+		capacity=1800. 
+		critical_density=45. 
+		nb_voie=3 
+		tau=1. 
+		kappa=1. 
+		nu=1.
+		nbCells=5 
+		delay=1 
+		//Event
+		road_length=2.
+		max_speed=90.
+		min_speed=50.
+		initial_car_number=20 
+		headless=false
+	
+	information
+		description "Experiment on hybrid highway, this experiment comes from Benjamin Camus' thesis. We use the same parameters.
+This experiment contains three models and four kind of heterogeneities : simulation tools, formalisms, time and data representation.
+In terms of : 
+-simulation tools, the micro model is built in NetLogo whereas the other models are Java ad-hoc;
+-formalisms, micro model is a multi-agent model, the cell model is equationnal and the event model is a discrete event model;
+-time representation, cell and event models time is in hour, the one of micro model is nearly 0.1 second (0.00004h).
+-data representation, micro model and event model represents atomic cars whereas cell models only represents streams.
+"
+		
+	simulation parameters
+		stopTime=0.0004
+		stopTimeMicro=10. //stopTime : 0.00004
+		startTime=0.
+		timeStep=0.0001 
+		minPropagationDelayEventModel=0.022222222222222223 //road_length : max_speed
+		autoCloseGui=true

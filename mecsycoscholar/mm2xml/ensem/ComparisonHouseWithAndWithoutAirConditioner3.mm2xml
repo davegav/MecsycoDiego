@@ -1,0 +1,78 @@
+multimodel ComparisonHouseWithAndWithoutAirConditioner3
+
+submodels
+	name ConditionedHouse path "Library/Multimodel/HouseJavaController3.xml"
+	name BehaviorController path "Library/Basic/BehaviorController.xml"
+	name Weather path "Library/Basic/WeatherData.xml"
+	name Occupancy path "Library/Basic/OccupancyData.xml"
+
+interface
+	parameters
+		//Initial value for the House
+		Tinit:297.65 refers to (ConditionedHouse:"Tinit") //inside the rooms
+		TextInit:297.65 refers to (ConditionedHouse:"TextInit") //on the outer face of walls (keep this equal to Tinit)
+		
+		//Controller parameters
+
+		maxTemp:299.15 refers to (ConditionedHouse:"maxTemp")
+		minTemp:296.15 refers to (ConditionedHouse:"minTemp")
+
+		//This limits will be internal couplings: behaviorController -> ConditionedHouse (No need of triple variables)
+		// Also this values will be internally set according to the optimization parameters
+		Temp1:294.15 refers to (ConditionedHouse:"Temp1")
+		Temp2:294.15 refers to (ConditionedHouse:"Temp2")
+		Temp3:294.15 refers to (ConditionedHouse:"Temp3")
+		Pow1:0. refers to (ConditionedHouse:"Pow1")(BehaviorController:"Pow1_out")
+		Pow2:0. refers to (ConditionedHouse:"Pow2")(BehaviorController:"Pow2_out")
+		Pow3:0. refers to (ConditionedHouse:"Pow3")(BehaviorController:"Pow3_out")
+		//This Parameters also will be internal couplings: ConditionedHouse -> behaviorController (No need of triple variables)
+		
+		//Maximum power allowed
+		maxPow1:250. refers to (ConditionedHouse:"maxPow1")
+		maxPow2:125. refers to (ConditionedHouse:"maxPow2")
+		maxPow3:125. refers to (ConditionedHouse:"maxPow3")
+		//Represents the time between each controller's command
+		step:720. refers to (ConditionedHouse:"step")
+	outputs 
+		T1:Double refers to (ConditionedHouse:"T1")
+		T2:Double refers to (ConditionedHouse:"T2")
+		T3:Double refers to (ConditionedHouse:"T3")
+		Text:Double refers to (Weather:"AirTemperatureWs")
+		Occup:Double refers to (Occupancy:"Occupancy")
+		Pow1:Double refers to (ConditionedHouse:"Pow1")
+		Pow2:Double refers to (ConditionedHouse:"Pow2")
+		Pow3:Double refers to (ConditionedHouse:"Pow3")
+		
+		Comfort:Double refers to (BehaviorController:"Comfort")
+		
+		Consum:Double refers to (BehaviorController:"Consum")
+		
+		
+internal couplings
+	{Occupancy."Occupancy" -> ConditionedHouse."Occup"}	
+	{Occupancy."Occupancy" -> BehaviorController."Occup"}	
+	
+	{Weather."AirTemperatureWs" -> ConditionedHouse."Text" 
+		event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15 //Convert C to K
+	}
+	
+	{ConditionedHouse."T1" -> BehaviorController."Temp1"}	
+	{ConditionedHouse."T2" -> BehaviorController."Temp2"}	
+	{ConditionedHouse."T3" -> BehaviorController."Temp3"}	
+	
+	{ConditionedHouse."Pow1" -> BehaviorController."Pow1_out"}	
+	{ConditionedHouse."Pow2" -> BehaviorController."Pow2_out"}	
+	{ConditionedHouse."Pow3" -> BehaviorController."Pow3_out"}	
+	
+	
+information
+	keywords "Use case" "TP" "ENSEM" "Hierarchy" "Comparison" "Smart heating"
+	description "Example used to get ENSEM students in touch with co-simulation concepts.
+"
+
+simulator
+	simulation variables
+		//For FMU, these are the three simulation variables, they are all mandatory.
+		stopTime:604800. refers to (ConditionedHouse:"stopTime") (Weather:"stopTime") (Occupancy:"stopTime")
+		timeStep:360.  refers to (ConditionedHouse:"timeStep") //Time step for the House simulation
+ 		commStep:1  refers to (ConditionedHouse: "communicationStep") // Number of time steps between each communication time, keep 1.

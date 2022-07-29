@@ -1,0 +1,35 @@
+model BehaviorController type "mecsycoscholar.application.ensem.model.controller.BehaviorControllerModelArtifact"
+interface 
+	parameters 
+		OptTemp:297.65
+		maxPow1:500.		maxPow2:250.		maxPow3:250.
+		step:720.
+		Temp1:297.65
+		Temp2:297.65
+		Temp3:297.65
+		Pow1_out:0.
+		Pow2_out:0.
+		Pow3_out:0.
+		Comfort:0.
+		Consum:0.
+		Occup:0.
+	inputs
+		Temp1:Double
+		Temp2:Double
+		Temp3:Double
+		Pow1_out:Double
+		Pow2_out:Double
+		Pow3_out:Double
+		Occup:Double
+	outputs		
+		Comfort:Double
+		Consum:Double
+		
+information 
+	keywords 
+		"Use case" "TP" "ENSEM" "Smart heating" "Controller"
+	description 
+	"Controller model of the TP_ENSEM multimodel. Revised version to be compliant/exchangeable with the MatLab ones."
+simulator
+	simulation variables
+		stopTime:604801.  //A parameter used by the agent to stop the model when simulation is over

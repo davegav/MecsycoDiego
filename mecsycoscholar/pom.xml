@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mecsyco</groupId>
+	<artifactId>mecsycoscholar</artifactId>
+	<version>3.0.0</version>
+	<description>Contains MECSYCO examples.</description>
+
+	<licenses>
+		<license>
+			<name>GNU Affero General Public License v3.0</name>
+			<url>https://opensource.org/licenses/AGPL-3.0</url>
+		</license>
+	</licenses>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<compilerArgument>-Xlint:all</compilerArgument>
+					</configuration>
+				</plugin>
+				<!-- Surefire plugin to automate JUnit testing -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M4</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.jupiter</groupId>
+							<artifactId>junit-jupiter-engine</artifactId>
+							<version>5.6.2</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<!-- Checkstyle plugin is used to have a uniform way of coding. checkstyle:checkstyle -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>3.1.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>8.29</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>checkstyle.xml</configLocation>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>true</failsOnError>
+						<linkXRef>false</linkXRef>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-core</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-communication</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-communication-dds</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-observing</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-world-netlogo</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-world-fmi</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-world-common</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-world-matlab</artifactId>
+			<version>[0.0.1,)</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>mecsyco-description</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
+
+		<!-- Logging framework (optional) -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.3</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Optional dependency from Logback -->
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+			<version>2.7.8</version>
+			<optional>false</optional>
+		</dependency>
+
+		<!-- For test. -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.6.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

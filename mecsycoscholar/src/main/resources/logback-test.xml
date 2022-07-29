@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debig="true">
+	<contextName>mecsyco</contextName>
+
+	<timestamp key="timestamp" datePattern="yyyy'-'MM'-'dd'--'HH'-'mm'-'ss"/>
+	<property scope="local" resource="mecsyco.properties"/>
+
+	<!-- Console -->
+	<if condition='isDefined("CONSOLE_LOGGING_ENABLED")'>
+		<then>
+			<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+				<target>System.out</target>
+				<encoder>
+					<pattern>${LOGGING_PATTERN}</pattern>
+				</encoder>
+			</appender>
+
+			<if condition='isDefined("ASYNC_LOGGING_ENABLED")'>
+				<then>
+					<appender name="ASYNC_STDOUT" class="ch.qos.logback.classic.AsyncAppender">
+						<queueSize>500</queueSize>
+						<discardingThreshold>0</discardingThreshold>
+						<appender-ref ref="STDOUT" />
+					</appender>
+
+					<root level="${ROOT_LOGGING_LEVEL}">
+						<appender-ref ref="ASYNC_STDOUT"/>
+					</root>
+				</then>
+				<else>
+					<root level="${ROOT_LOGGING_LEVEL}">
+						<appender-ref ref="STDOUT"/>
+					</root>
+				</else>
+			</if>
+		</then>
+	</if>
+
+	<!-- File -->
+	<if condition='isDefined("FILE_LOGGING_ENABLED")'>
+		<then>
+			<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+				<file>${LOGGING_FILE_PATH}/${CONTEXT_NAME}--${timestamp}.log</file>
+				<encoder>
+					<pattern>${LOGGING_PATTERN}</pattern>
+				</encoder>
+			</appender>
+			
+			<if condition='isDefined("ASYNC_LOGGING_ENABLED")'>
+				<then>
+					<appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+						<queueSize>500</queueSize>
+						<discardingThreshold>0</discardingThreshold>
+						<appender-ref ref="FILE" />
+					</appender>
+
+					<root level="${ROOT_LOGGING_LEVEL}">
+						<appender-ref ref="ASYNC_FILE"/>
+					</root>
+				</then>
+				<else>
+					<root level="${ROOT_LOGGING_LEVEL}">
+						<appender-ref ref="FILE"/>
+					</root>
+				</else>
+			</if>
+		</then>
+	</if>
+
+	<!-- Logging level -->
+
+	<include resource="logback-loggers.xml"/>
+
+</configuration>

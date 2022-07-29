@@ -1,0 +1,71 @@
+co-simulation ComparisonHousesMatLab
+
+model path "Library/Multimodel/ComparisonHouseWithAndWithoutAirConditionerMatLab.xml"
+parameters 
+	//Initial value for the House
+	Tinit=298.15  //inside the rooms
+	TextInit=298.15 //on the outer face of walls (keep this equal to Tinit)
+	
+	//Controller parameters
+	maxTemp1=298.15
+	minTemp1=293.15 
+	maxTemp2=298.15
+	minTemp2=293.15 
+	maxTemp3=298.15 
+	minTemp3=293.15 
+	Temp1=294.15 
+	Temp2=294.15 
+	Temp3=294.15 
+	//Initial values of the controller's command
+	Pow1=0. 
+	Pow2=0. 
+	Pow3=0. 
+	//Maximum power allowed
+	maxPow1=250. 
+	maxPow2=125. 
+	maxPow3=125. 
+	//Represents the time between each controller's command
+	step=720. 
+	
+	observing
+		artifact "mecsyco.observing.jfreechart.xy.PostMortemTXTimeGraphic"
+		ports T1_a T2_a T3_a Text T1_b T2_b T3_b
+		links
+			{"T1_a" ->T1_a event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+			{"T2_a" ->T2_a event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+			{"T3_a" ->T3_a event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+			{"Text" ->Text}
+			{"T1_b" ->T1_b event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+			{"T2_b" ->T2_b event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+			{"T3_b" ->T3_b event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+		settings
+			dateFormat="dd MMM HH:mm" scale="SECOND" Xaxis="" Yaxis="Temperature in Celsius" render="Line"
+			year=2019 month=7 day=1 hour=14 minute=0 second=0 
+			lineThickness=2.
+			legendSize=22
+		artifact "mecsyco.observing.jfreechart.xy.PostMortemTXTimeGraphic"
+		ports Pow1 Pow2 Pow3
+		links
+			{"Pow1" ->Pow1}
+			{"Pow2" ->Pow2}
+			{"Pow3" ->Pow3}
+		settings
+			dateFormat="dd MMM HH:mm" scale="SECOND" Xaxis="" Yaxis="Power in W" render="Step"
+			year=2019 month=7 day=1 hour=14 minute=0 second=0  
+			lineThickness=2.
+			legendSize=22
+			
+	information description "Model representing two houses submitted to outdoor temperature. 
+The first house is passive while the second one contains an air conditioner which tries to maintain the temperature.
+A weather CSV is used to get the outdoor temperature, the data were collected by APHEEN.
+This multimodel is used during a student practice at ENSEM for the co-simulation course, it enables to exemplify co-simulation and heterogeneity handling.
+Models : 
+-1 CSV database as source model for the weather.
+-2 FMU for Houses, exported from OpenModelica and built using the BuildSysPro library from EDF R&amp;D.
+-1 Java ad-hoc model for the controller (note that a Matlab version of this controller exists).
+"
+	
+	simulation parameters
+		stopTime=172400. 
+		timeStep=180.  //Time step for the House simulation
+ 		commStep=1  // Number of time steps between each communication time, keep 1.

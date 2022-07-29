@@ -1,0 +1,8 @@
+co-simulation TestWeatherDataExperiment
+model path "Library/Basic/WeatherData.xml"
+
+information description "Model used to check the data inside a weather CSV. Just one CSV as source model."			
+
+simulation parameters
+	startTime=0. 
+	stopTime=864000. //1 days = 1 * 86400 seconds

@@ -1,0 +1,35 @@
+multimodel RandomWalkMMTimeOperation version "1.0.0" 
+
+submodels
+	name world1 path "./Library/NetLogo/RandomWalk.xml"
+	name world2 path "Library/NetLogo/RandomWalk.xml"
+interface
+	parameters
+		g_count:100 refers to (world1:"g_count") (world2:"g_count")
+		g_size1:2 refers to (world1:"g_size")
+		g_size2:4 refers to (world1:"g_size")
+		g_color1:55 refers to (world1:"g_color")
+		g_color2:15 refers to (world2:"g_color")
+		
+	outputs
+		nbTurtle1:Double refers to (world1:"nbTurtle")
+		nbTurtle2:Double refers to (world2:"nbTurtle")
+		
+internal couplings
+	{world1."out1" -> world2."in1" time operation add 2.} //Events delayed by 2
+	{world2."out1" -> world1."in1"}
+
+information
+	keywords
+		"Random walk"
+	description
+		"Mecsycoscholar example of a multimodel composed of two random walk models interconnected with time operations between them.
+Time of the first model is just normal, each tick represents 1 time step. It is the same for the second one.
+We juste add two operations to shift their synchronization by 2. First model will be delayed by two time steps."
+
+simulator
+	simulation variables
+		stopTime: 500.  refers to (world1:"stopTime")(world2:"stopTime")
+		discretization: 1.  refers to (world1:"discretization") (world2:"discretization")
+		windowHeight:520  refers to (world1:"windowHeight") (world2:"windowHeight")
+		windowWidth:520  refers to (world1:"windowWidth") (world2:"windowWidth")

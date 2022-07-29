@@ -1,0 +1,39 @@
+multimodel WolfSheepPredationWithEvents version "1.0"
+
+submodels 
+	name World path "Library/NetLogo/WolfSheepPredationExample.xml"
+	name InputWolfHunt path "Library/Basic/InputWolfHunt.xml" 
+	name InputSheepComing path "Library/Basic/InputSheepComing.xml"
+	name InputRegrowth path "Library/Basic/InputRegrowth.xml" 
+
+interface
+	parameters 
+		grass:true refers to (World : "grass")
+		grass_regrowth_time : 30 refers to (World : "grass_regrowth_time")
+		initial_number_sheep : 100 refers to (World : "initial_number_sheep")
+		initial_number_wolves : 50 refers to (World : "initial_number_wolves")
+	outputs
+		nb_sheep : Double initOption no refers to (World : "nb_sheep")
+		nb_wolves : Double initOption no refers to (World : "nb_wolves")
+		nb_grass : Double initOption no refers to (World : "nb_grass")
+ 
+		
+internal couplings 
+	{InputWolfHunt."nbWolfHunt" -> World."wolf_hunt"}
+	{InputSheepComing."nbSheepComing" -> World."sheep_coming"}
+	{InputRegrowth."newRegrowthRate" -> World."grass_regrowth"}
+	
+information
+	keywords "NetLogo" "Predation" "CSV"
+	description "Wolf-sheep predation model with several event to exemplify the possibility of the NetLogo model artifact. 
+Several events will occur, 
+the creation of sheep at 100 to simulate the arrival of a herd, 
+the death of several wolves at tick 177 to simulate a wolf hunt, 
+and finally an increase of the grass regrowth time at 400."
+
+simulator
+	simulation variables
+		stopTime: 500. refers to (World : "stopTime") (InputWolfHunt : "stopTime") (InputSheepComing : "stopTime") (InputRegrowth : "stopTime")
+		discretization: 1. refers to (World : "discretization") 		
+		
+		

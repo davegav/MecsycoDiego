@@ -1,0 +1,37 @@
+multimodel ConditionedRoom_x64
+	
+	submodels
+		name Room path "My Models/fmu/Thesis_example_Room_2inputs_OM_Cs2_x64.fmu"
+		name SmartConditioner path "Library/Basic/SmartConditioner.xml"
+	
+	interface
+		parameters
+			//Room 
+			V:30. refers to (Room: "V") //Volume of the room
+			VolumicHeatCapacity:6000. refers to (Room: "cv") //Volumic heat capacity of the room
+			Tinit: 294.15 refers to (Room: "Tinit") (SmartConditioner: "Troom_init") //Initial temperature of the room
+			//Air conditioner
+			Twanted:293.15 refers to (SmartConditioner: "Twanted")
+			tolerance:1. refers to (SmartConditioner: "tolerance")
+			maxHeatflow:200. refers to (SmartConditioner: "maxHeatflow")
+		inputs
+			Qext:Double refers to (Room:"Qext")
+		outputs
+			Troom:Double refers to (Room:"Tin")
+			PowerConsumed:Double refers to (SmartConditioner:"PowerConsumed")
+			
+	internal couplings
+		{Room."Tin" -> SmartConditioner."Troom"}
+		{SmartConditioner."Qroom" -> Room."Qheater"}
+	
+	information
+		keywords "Thermic" "Example" ""
+		description 
+"Multimodel of a room heated by a smart heater (designed in Java). Is supposed to be reused in other multimodels."
+
+	simulator
+		simulation variables
+			stopTime:86400. refers to (Room:"stopTime") (SmartConditioner:"stopTime")
+			timeStep:60. refers to (Room:"timeStep") (SmartConditioner:"timeStep")
+			startTime:0. refers to (Room:"startTime") (SmartConditioner:"startTime")
+

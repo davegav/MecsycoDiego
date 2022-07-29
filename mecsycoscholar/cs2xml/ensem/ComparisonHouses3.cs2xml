@@ -1,0 +1,38 @@
+co-simulation ComparisonHouses3 
+
+model path "Library/Multimodel/ComparisonHouseWithAndWithoutAirConditioner3.xml"
+
+parameters 
+	// Temperatura objetivo 24.5 = 297.65
+	//Initial value for the House
+	Tinit=297.65   //inside the rooms
+	TextInit=297.65  //on the outer face of walls (keep this equal to Tinit)
+	//Represents the time between each controller's command
+	maxTemp=297.75
+	minTemp=297.55
+	step=720.
+	
+	observing				
+			
+		artifact "mecsycoscholar.observing.base.logging.SingleFileCustomLoggingArtifact"
+			ports Comfort Consum
+			links
+				{"Comfort" -> Comfort}
+				{"Consum" -> Consum}
+			settings
+				filePath= "C:/Users/Diego/Documents/outputsMecsyco/results"
+				
+	information description "Model representing two houses submitted to outdoor temperature. 
+The first house is passive while the second one contains an air conditioner which tries to maintain the temperature.
+A weather CSV is used to get the outdoor temperature, the data were collected by APHEEN.
+This multimodel is used during a student practice at ENSEM for the co-simulation course, it enables to exemplify co-simulation and heterogeneity handling.
+Models : 
+-1 CSV database as source model for the weather.
+-2 FMU for Houses, exported from OpenModelica and built using the BuildSysPro library from EDF R&amp;D.
+-1 Java ad-hoc model for the controller (note that a Matlab version of this controller exists).
+"
+	
+	simulation parameters
+		stopTime=604800. 
+		timeStep=180.  //Time step for the House simulation
+ 		commStep=1  // Number of time steps between each communication time, keep 1.

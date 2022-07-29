@@ -1,0 +1,17 @@
+model WeatherData type "CSV" path "My Models/csv/Weather_Nancy.csv"
+version "1.0"
+interface
+	outputs
+		AirTemperatureWs:Double
+		AirTemperatureEE:Double
+		GlobalRadianceWs:Double
+
+information 
+	description "CS2V file that contain outside temperature and global radiance from 01/08/2019 14h to 10/08/2019 14h, every 300s."
+	 
+simulator
+	simulation variables
+		stopTime:604800.0
+		startTime:0.0
+		
+	

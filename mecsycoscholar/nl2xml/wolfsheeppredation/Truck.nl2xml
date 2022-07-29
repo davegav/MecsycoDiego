@@ -1,0 +1,31 @@
+model Truck path "My Models/NetLogo/pedestrian_truck.nlogo" 
+version "1.0" 
+interface
+	parameters 
+		//Parameters associated to commands called before the setup method of NetLogo.
+		g_shape :"truck" command "set g-shape \"%s\"" //Pedestrian shape, look in NetLogo documentation to find more option.
+		g_color:55 command "set g-color %s" 		 
+	inputs
+		/*
+		 * Agents enter from the left border, we use 5 attributes to recreate them, then we use a vector of 5 String elements. 
+		 * For each tupe of 5 elements in the vector, an agent will be created using the command.
+		 */
+		left_in : Vector<String, String> loop command "create-pedestrians 1 [setxy 0 %s set energy %s set shape g-shape set color green set heading 90 set size g-size]"
+	
+	outputs
+		 /*
+		  * Agents leave the model by the right border, we get the two elements that identify them, their y coordinate and their energy.
+		  * The generated event will be a vector of 2-element-vector.
+		  */
+		right_out : Vector<Double, Double> report TurtleSet["ycor","energy"] "pedestrians with [hidden?]"
+		
+information
+	keywords
+		"Pedestrian" "Truck"
+		"NetLogo"
+	description
+		"This is a modified pedestrian model from NetLogo, it is used for the example of the integration of a NetLogo model in a co-simulation."
+simulator
+	simulation variables
+		stopTime: 1000. 
+		discretization: 1 

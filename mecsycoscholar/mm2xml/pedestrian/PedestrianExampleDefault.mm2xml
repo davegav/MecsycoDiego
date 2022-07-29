@@ -1,0 +1,17 @@
+multimodel PedestrianExampleDefault version "1.0"
+
+submodels //Submodel with name and path
+	name Pedestrian1 path "Library/NetLogo/Pedestrian.xml"
+	name Pedestrian2 path "Library/NetLogo/Pedestrian.xml"
+	name Pedestrian3 path "Library/NetLogo/Pedestrian.xml" 
+
+interface //Simple example, we do not define an interface -> This multimodel isn't reusable.
+
+internal couplings //Connections between submodels
+	{Pedestrian1."right_out" -> Pedestrian2."left_in"}
+	{Pedestrian2."right_out" -> Pedestrian3."left_in"}
+	{Pedestrian3."right_out" -> Pedestrian1."left_in"}
+
+simulator
+	simulation variables //Only one simulation variables is mandatory, the stopTime
+	stopTime:1000.  refers to (Pedestrian1: "stopTime") (Pedestrian2: "stopTime") (Pedestrian3: "stopTime") 

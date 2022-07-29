@@ -1,0 +1,37 @@
+multimodel HybridHighway_Micro_Event
+
+submodels
+	name Micro path "Library/NetLogo/Micro.xml" 
+	name Event path "Library/Basic/Event.xml"
+
+interface
+	parameters	
+		//Event
+		road_length:2. refers to (Event:"road_length")
+		max_speed:90. refers to (Event:"max_speed")
+		min_speed:50. refers to (Event:"min_speed")
+		initial_car_number:20 refers to (Event:"initial_car_number")
+		headless:false refers to (Event:"headless")
+		
+	outputs
+		obsEvent:Double refers to (Event:"observation") //Get the number of vehicles
+		obsMicro:Vector<String, String, String, String> 
+			refers to (Micro:"out") //Get all agents to count the vehicles
+internal couplings
+	{Micro."outEvent"->Event."in0" time operation multiply 0.00004 //Time operation multiply by the time step of the micro model
+		event operation "mecsycoscholar.application.highway.operation.TurtlesToGroup" 
+	} 
+	{Event."out0"->Micro."in" time operation divide 0.00004 //Time operation division by the time step of the micro model
+		event operation "mecsycoscholar.application.highway.operation.Group2Turtle"
+			microMaxSpeed=100.
+	}
+
+simulator
+	simulation variables
+		stopTime:4. refers to (Event:"stopTime")
+		startTime:0. refers to (Event:"startTime")
+		stopTimeMicro:100000. refers to (Micro:"stopTime") //stopTime : 0.00004
+		microHeight:230 refers to (Micro:"windowHeight")
+		microWidth:1250 refers to (Micro:"windowWidth")
+		minPropagationDelayEventModel:0.022222222222222223 refers to (Event:"minPropagationDelay") //Computed -> equal to road length / max speed
+		autoCloseGui:false refers to (Event:"autoCloseGui")

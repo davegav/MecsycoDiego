@@ -1,0 +1,15 @@
+model InputSheepComing type "CSV" path "My Models/csv/inputSheepComing.csv"
+version "1.0"
+interface 
+	outputs
+		nbSheepComing:Double
+
+information
+	description "Just a CSV model used to send a unique event in the Wolf Sheep Predation NetLogo example"
+ 
+simulator 
+	simulation variables
+		stopTime:1000.
+		startTime:0.0
+		
+	

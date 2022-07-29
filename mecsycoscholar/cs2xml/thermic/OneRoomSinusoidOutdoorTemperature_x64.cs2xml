@@ -1,0 +1,28 @@
+co-simulation OneRoomSinusoidOutdoorTemperature_x64
+
+model path "Library/Multimodel/OneRoomSubmittedToOutdoorTemperature_x64.xml"
+
+parameters
+	//Room
+	V=30.	//Volume of the room
+	VolumicHeatCapacity=6000. //Volumic heat capacity of the room
+	Tinit= 293.15  //Initial temperature of the room
+	//Wall
+	S=12. //Surface of the outer wall
+	lambda=0.7 //Thermic resistance of the wall
+	//Outdoor temperature (it is a sine wave) 
+	offset=288.15 
+	amplitude=5.
+	period=86400.
+
+observing artifact TX ports Troom Text display live renderer Line 
+
+information description
+"Example from Thomas Paris' thesis. It represents one room submitted to outdoor temperature.
+There are three FMU, one for the room, one for the outdoor temperature (just a sinusoid) and one from the wall between the room and outside.
+It was the first step of the thermal example."
+
+simulation parameters 
+	stopTime=86400.
+	timeStep=60. 
+	startTime=0.

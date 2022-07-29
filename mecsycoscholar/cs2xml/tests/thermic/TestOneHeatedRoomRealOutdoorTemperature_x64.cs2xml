@@ -1,0 +1,30 @@
+co-simulation TestOneHeatedRoomRealOutdoorTemperature_x64
+
+model path "Library/Multimodel/OneHeatedRoomSubmittedToOutdoorTemperature3_x64.xml" 
+	parameters
+		//Room
+		V=30. 
+		VolumicHeatCapacity=50000.
+		Tinit= 293.5
+		TextInit=301.5
+		S=12. 
+		lambda=3.
+		Twanted=293.15
+		tolerance=2. 
+		maxHeatflow=1500.
+		//Outdoor temperature
+		dbName="stationMeteo.db" 
+		startDate="2019-08-01"
+		endDate="2019-08-03"
+	
+	information
+		description 
+"Example from Thomas Paris' thesis. It represents one heated room submitted to outdoor temperature.
+It is the second step of the thermal example.
+The previous Room model is linked to a Java ad-hoc heater to model a heated room. This heated room is then connected to a SQL database for the outdoor temperature (data collected by APHEEN).
+There are 4 models, 2 FMU (room and wall), 1 Java ad-hoc and 1 SQL database."
+		
+	simulation parameters
+		stopTime=8640. 
+		timeStep=60. 
+		startTime=0. 

@@ -1,0 +1,28 @@
+model OptimizatorController type "mecsycoscholar.application.ensem.model.controller.OptimizatorModelArtifact"
+interface 
+	parameters 
+		OptTemp:297.65
+		step:720.
+		Comfort:0.
+		Consum:0.
+		TempMax:299.15 		TempMin:296.15
+		runs:3
+		Iteration:0.
+	inputs
+		Comfort:Double
+		Consum:Double
+		TempMaxIn:Double
+		TempMinIn:Double
+	outputs
+		TempMaxOut:Double
+		TempMinOut:Double
+		Iteration:Double
+		
+information 
+	keywords 
+		"Use case" "TP" "ENSEM" "Smart heating" "Controller"
+	description 
+	"Controller model of the TP_ENSEM multimodel. Revised version to be compliant/exchangeable with the MatLab ones."
+simulator
+	simulation variables
+		stopTime:604801.  //A parameter used by the agent to stop the model when simulation is over

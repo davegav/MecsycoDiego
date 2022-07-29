@@ -1,0 +1,24 @@
+co-simulation TestPedestrianExperiment
+
+model path "Library/Multimodel/PedestrianExample.xml"
+
+parameters
+	g_count =6 
+	g_size1 =3
+	g_shape1 ="turtle" 
+	g_color1 =55 
+	g_size2 =7 
+	g_shape2 ="butterfly" 
+	g_color2 =15 
+	g_size3 =5 
+	g_shape3 ="bug" 
+	g_color3 =105 
+	
+information description "Example of connection between three NetLogo models. 
+The graph shows the number of agents which will be transmitted (hidden turtles).
+This example shows the ability to transfer complex data structure (agents) from one model to another.
+It can also be used to show the synchronization behavior (slowing down or speeding up the different models)."
+	
+simulation parameters
+	stopTime=50. 
+  	discretization=1.

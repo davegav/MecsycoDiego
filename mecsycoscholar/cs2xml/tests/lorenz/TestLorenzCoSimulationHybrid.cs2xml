@@ -1,0 +1,21 @@
+co-simulation TestLorenzCoSimulationHybrid
+model
+	path "Library/Multimodel/LorenzMultimodelHybrid.xml"
+	parameters
+		a=10.
+		b=28.
+		c=2.67
+		x_init=2.
+		y_init=2. 
+		z_init=8. 
+
+information 
+	keywords "Lorenz" "Chaotic" "Hybrid"
+	description "Simple example of Lorenz co-simulation mixing FMU and NetLogo models.
+2 FMU models and 1 NetLogo models, show the ability to mix simulation tools."
+
+simulation
+	parameters
+		stopTime=1.
+		timeStep=0.01
+		commStep=1

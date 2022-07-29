@@ -1,0 +1,26 @@
+co-simulation RandomWalkExperimentTime
+
+model path "Library/Multimodel/RandomWalkMMTimeOperation.xml"
+
+parameters
+	g_count=200 
+	g_size1=2 
+	g_size2=4
+	g_color1=55 
+	g_color2=15
+
+observing artifact TX ports nbTurtle1 nbTurtle2 display live renderer Step
+	
+information
+	keywords
+		"Random walk" "Time" "Operation"
+	description 
+		"Mecsycoscholar experiment of a multimodel composed of two random walk models interconnected with time operations between them.
+The two models run at the same speed. But a time operation is added to delay the events of world 1 by two time steps."
+
+	
+simulation parameters
+	stopTime= 500. //Stop time of the simulation
+	discretization= 1. //Link between a NetLogo tick and the time of the co-simulation;
+	windowHeight=520 //Window height
+	windowWidth=520 //Window width

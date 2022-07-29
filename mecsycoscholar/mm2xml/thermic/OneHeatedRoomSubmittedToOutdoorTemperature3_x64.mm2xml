@@ -1,0 +1,47 @@
+multimodel OneHeatedRoomSubmittedToOutdoorTemperature3_x64
+	
+	submodels
+		name HeatedRoom path "Library/Multimodel/ConditionedRoom_x64.xml"
+		name OuterWall path "My Models/fmu/Thesis_example_Wall_OM_Cs2_x64.fmu"
+		name OutdoorTemperature path "Library/Basic/WeatherData.xml"
+	
+	interface
+		parameters
+			//HeatedRoom
+			V:30. refers to (HeatedRoom: "V") //Volume of the room
+			VolumicHeatCapacity:6000. refers to (HeatedRoom: "VolumicHeatCapacity") //Volumic heat capacity of the room
+			Tinit: 293.15 refers to (HeatedRoom: "Tinit") (OuterWall:"T_a") //Initial temperature of the room
+			Twanted:293.15 refers to (HeatedRoom: "Twanted")
+			tolerance:1. refers to (HeatedRoom: "tolerance")
+			maxHeatflow:200. refers to (HeatedRoom: "maxHeatflow")
+			//Wall
+			TextInit:293.15 refers to (OuterWall:"T_b")
+			S:12. refers to (OuterWall:"S") //Surface of the outer wall
+			lambda:0.7 refers to (OuterWall: "lambda") //Thermic resistance of the wall
+			//Outdoor temperature
+			dbName:"stationMeteo.db" refers to (OutdoorTemperature: "dbName")
+			startDate:"2019-08-01"  refers to (OutdoorTemperature: "startDate")
+			endDate:"2019-08-02" refers to (OutdoorTemperature: "endDate")
+		//No inputs
+		outputs
+			Troom:Double refers to (HeatedRoom:"Troom")
+			Text:Double refers to (OutdoorTemperature:"AirTemperatureWs")
+			PowerConsumed:Double refers to (HeatedRoom:"PowerConsumed")
+			
+	internal couplings
+		{HeatedRoom."Troom" -> OuterWall."T_a"}
+		{OuterWall."Q_a" -> HeatedRoom."Qext"} 
+		{OutdoorTemperature."AirTemperatureWs" -> OuterWall."T_b" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15} //Operation to convert in K
+	
+	information
+		keywords "Thermic" "Example"
+		description 
+"Multimodel used to test the Room model submitted to the outdoor temperature (data stored in a database).
+The heat flow is computed through a Wall model (just a thermal resistance)."
+
+	simulator
+		simulation variables
+			stopTime:86400. refers to (HeatedRoom:"stopTime") (OuterWall:"stopTime") (OutdoorTemperature:"stopTime")
+			timeStep:60. refers to (HeatedRoom:"timeStep") (OuterWall:"timeStep") 
+			startTime:0. refers to (HeatedRoom:"startTime") (OuterWall:"startTime") (OutdoorTemperature:"startTime") 
+

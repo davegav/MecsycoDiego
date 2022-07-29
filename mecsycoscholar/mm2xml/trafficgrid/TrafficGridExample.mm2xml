@@ -1,0 +1,28 @@
+multimodel TrafficGridExample version "1.0"
+
+submodels 
+	name TrafficGridNO path "Library/NetLogo/TrafficGrid.xml" //Top left model
+	name TrafficGridNE path "Library/NetLogo/TrafficGrid.xml" //Top right model
+	name TrafficGridSO path "Library/NetLogo/TrafficGrid.xml" //Bottom left model
+	name TrafficGridSE path "Library/NetLogo/TrafficGrid.xml" //Bottom right
+ 
+interface
+	//No interface for this example
+		
+internal couplings 
+	//Connection between the submodels.
+	{TrafficGridNO."right_out" -> TrafficGridNE."left_in"}
+	{TrafficGridNO."down_out" -> TrafficGridSO."up_in"}
+	{TrafficGridSO."right_out" -> TrafficGridSE."left_in"}
+	{TrafficGridSO."down_out" -> TrafficGridNO."up_in"}
+	{TrafficGridNE."right_out" -> TrafficGridNO."left_in"}
+	{TrafficGridNE."down_out" -> TrafficGridSE."up_in"}
+//	{TrafficGridSE."right_out" -> TrafficGridSO."left_in"}
+//	{TrafficGridSE."down_out" -> TrafficGridNE."up_in"}
+
+simulator
+	simulation variables 
+	stopTime:1.  refers to (TrafficGridNO: "stopTime") (TrafficGridSO: "stopTime") (TrafficGridNE: "stopTime") (TrafficGridSE: "stopTime")
+  	discretization: 0.001  refers to (TrafficGridNO: "discretization") (TrafficGridSO: "discretization") (TrafficGridNE: "discretization") (TrafficGridSE: "discretization")
+	windowHeight:520  refers to (TrafficGridNO:"windowHeight") (TrafficGridSO:"windowHeight") (TrafficGridNE:"windowHeight") (TrafficGridSE:"windowHeight")
+	windowWidth:520  refers to (TrafficGridNO:"windowWidth") (TrafficGridSO:"windowWidth") (TrafficGridNE:"windowWidth") (TrafficGridSE:"windowWidth")

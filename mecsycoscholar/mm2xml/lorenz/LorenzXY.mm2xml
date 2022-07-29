@@ -1,0 +1,32 @@
+multimodel LorenzXY version "FMU"
+
+submodels 
+	//As FMU already have a description file, we can use it directly (we have implemented a class who read the description.xml of FMU and link it with our description)
+	name LorenzX path "My Models/fmu/LorenzX_OM_Cs2_x64.fmu" 
+	name LorenzY path "My Models/fmu/LorenzY_OM_Cs2_x64.fmu" 
+ 
+interface 
+	parameters
+		a:10.0 refers to (LorenzX : "a")
+		b:28.0 refers to (LorenzY : "b")
+		//Initial value of ports below
+		x_init:1. refers to (LorenzX : "x") ( LorenzY: "x") 
+		y_init:1. refers to (LorenzY : "y") ( LorenzX: "y")
+		z_init:4. refers to (LorenzY: "z")
+	inputs 
+		z: Double initOption parameter refers to (LorenzY: "z")
+	outputs
+		x:Double initOption parameter refers to ( LorenzX: "x") 
+		y:Double initOption parameter refers to ( LorenzY: "y") 
+		
+internal couplings
+	{LorenzX."x" -> LorenzY."x"}
+	{LorenzY."y" -> LorenzX."y"}
+
+simulator
+	simulation variables 
+	//For FMU, these are the three simulation variables, they are all mandatory.
+	stopTime:10.  refers to (LorenzX: "stopTime") (LorenzY: "stopTime")  //End simulation time
+ 	timeStep:0.01  refers to (LorenzX: "timeStep") (LorenzY: "timeStep")  //Time step
+ 	commStep:1  refers to (LorenzX: "communicationStep") (LorenzY: "communicationStep")  // Number of time steps between each communication time.
+			

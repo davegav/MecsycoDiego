@@ -1,0 +1,15 @@
+model InputWolfHunt type "CSV" path "My Models/csv/inputWolfHunt.csv"
+version "1.0"
+interface
+	outputs
+		nbWolfHunt:Double
+
+information
+	description "Just a CSV model used to send a unique event in the Wolf Sheep Predation NetLogo example"
+	 
+simulator
+	simulation variables
+		stopTime:1000.
+		startTime:0.0
+		
+	

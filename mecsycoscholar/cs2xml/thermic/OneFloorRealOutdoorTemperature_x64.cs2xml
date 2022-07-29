@@ -1,0 +1,68 @@
+co-simulation OneFloorRealOutdoorTemperature_x64
+model path "Library/Multimodel/CorridorWith10OfficesSubmittedToRealOutdoorTemperature_x64.xml"
+parameters 
+	//ConditionedRooms
+	VolumeOffices=30. //Volume of the room
+	VolumeCorridor=225. //Volume of the corridor
+	VolumicHeatCapacityOffices=50000. //Volumic heat capacity of the room
+	VolumicHeatCapacityCorridor=30000. //Volumic heat capacity of the corridor
+	Tinit= 293.15 //Initial temperature in rooms
+	Twanted=293.15 //Setpoint temperature
+	tolerance=1.  //Tolerance on the indoor temperature
+	maxHeatflow=1500. //Max heatflow  of the air conditioners in rooms
+	maxHeatflowCorridor=7500. //Max heatflow  of the air conditioners in the corridor
+	//Walls
+	TextInit= 288.15 //Initial temperature of the outside
+	SOuterWalls2To9=7.5 //Outer wall surface for room 2 to 9
+	SOuterWalls1And10=17.5 //Outer wall surface for room 1 and 10
+	SOuterWallCorridor=95. ////Outer wall surface for the corridor
+	OuterWallLambda=3. //Thermic resistance of the outer walls
+	InnerWallLambda=7.	//Thermic resistance of the inner walls
+	//Outdoor temperature (real data) 
+	dbName="stationMeteo.db" 
+	startDate="2019-08-02" 
+	endDate="2019-08-04"
+observing
+	artifact "mecsyco.observing.jfreechart.xy.LiveTXTimeGraphic"
+			ports T1 T2 T3 T4 T5 TC Text 
+			links
+				{"TOffice1" -> T1 event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15} 
+				{"TOffice2" -> T2 event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+				{"TOffice3" -> T3 event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+				{"TOffice4" -> T4 event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+				{"TOffice5" -> T5 event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+				{"TCorridor" -> TC event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=-273.15}
+				{"OutTemp" -> Text}
+			settings
+				dateFormat="yyyy-MM-dd"   startDate="2018-08-02" 
+				displayDateFormat="dd MMM HH:mm" 
+				scale="SECOND"
+				Xaxis=""    Yaxis="Temperature in Celsius" 
+				render="Step"   lineThickness=2.   legendSize=22
+		artifact "mecsyco.observing.jfreechart.xy.LiveTXTimeGraphic"
+			ports P1 P2 P3 P4 P5 PC
+			links
+				{"PowerConsumed1" -> P1} {"PowerConsumed2" -> P2}
+				{"PowerConsumed3" -> P3} {"PowerConsumed4" -> P4}
+				{"PowerConsumed5" -> P5} {"PowerConsumedCorridor" -> PC}
+			settings
+				dateFormat="yyyy-MM-dd"   startDate="2018-08-02" 
+				displayDateFormat="dd MMM HH:mm" 
+				scale="SECOND"
+				Xaxis=""   Yaxis="Power in W"
+				render="Step"   lineThickness=3. legendSize=22
+				
+information keywords "FMU" "Thermal"
+description
+"Example used in Thomas Paris' thesis to exemplify hierarchical multi-model design.
+This multimodel represents one corridor linked to 10 offices, it is the last step of the thermal example.
+This multimodel is designed in a hierarchical way (room, heated room, floor).
+It contains 11 submodels Room, each Room is composed of one FMU and on Java ad-hoc air conditioner controller.
+The outside temperature comes from an SQL database, these data were collected by APHEEN.
+Each connection between rooms, and between room and outdoor temperature is represented by wall models (FMU).
+Finally there are 41 FMU (11 for rooms, 30 for walls), 11 Java ad-hoc models and one SQL source model."
+
+simulation parameters
+		stopTime=172800. 
+		timeStep=120. 
+		startTime=0. 

@@ -1,0 +1,33 @@
+model WolfSheepPredationExample version "1.0"
+path "My Models/NetLogo/Wolf Sheep Predation.nlogo" 
+interface 
+	parameters 
+		grass : true command "set grass? %s" 
+		grass_regrowth_time : 10 command "set grass-regrowth-time %s"
+		initial_number_sheep : 100 command "set initial-number-sheep %s" 
+		initial_number_wolves : 50 command "set initial-number-wolves %s"
+	
+	inputs
+		grass_regrowth : Integer initOption parameter command "set grass-regrowth-time %s"
+		sheep_gain_from_food : Integer command "set sheep-gain-from-food %s"
+		wolves_gain_from_food : Integer command "set wolves-gain-from-food %s"
+		sheep_reproduce_rate : Double command "set sheep-reproduce %s"
+		wolves_reproduce_rate : Double command "set wolves-reproduce %s"
+		wolf_hunt : Integer command "ask n-of %s wolves [die]"
+		sheep_coming : Integer command "create-sheep %s [set color white set size 1.5  set label-color blue - 2 set energy random (2 * sheep-gain-from-food) setxy min-pxcor max-pycor]"
+		sheep_loop_arrival : Vector<String,String> loop command "create-sheep 1 [setxy min-pxcor %s set energy %s set color white set size 1.5  set label-color blue - 2]"
+	outputs
+		nb_sheep : Double report Double "count turtles with [breed = sheep]"
+		nb_wolves : Double report Double "count turtles with [breed = wolves]" 
+		nb_grass : Double report Double "grass" 
+		sheep_escaping : Vector<String,String> report TurtleSet ["ycor", "energy"] "sheep with [xcor > max-pxcor - 0.5]"  command "ask sheep with [xcor > max-pxcor - 0.5] [die]"
+information
+	keywords
+		"Predation"
+		"NetLogo"
+	description
+		"This model represents wolf-sheep predation system example of NetLogo, it is an example of the integration of a NetLogo model in a co-simulation."
+simulator
+	simulation variables
+		stopTime: 1000.
+		discretization: 1.

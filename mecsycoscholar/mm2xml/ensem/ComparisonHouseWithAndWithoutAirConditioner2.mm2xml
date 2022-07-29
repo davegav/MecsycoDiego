@@ -1,0 +1,80 @@
+multimodel ComparisonHouseWithAndWithoutAirConditioner2
+
+submodels
+	name DiegoHouse path "Library/Multimodel/HouseJavaController2.xml" 
+	name ConditionedHouse path "Library/Multimodel/HouseJavaController.xml" 
+	name Weather path "Library/Basic/WeatherData.xml"
+
+interface
+	parameters
+		//Initial value for the House
+		Tinit:298.15 refers to (DiegoHouse:"Tinit")(ConditionedHouse:"Tinit") //inside the rooms
+		TextInit:298.15 refers to (DiegoHouse:"TextInit")(ConditionedHouse:"TextInit") //on the outer face of walls (keep this equal to Tinit)
+		
+		//Controller parameters
+		maxTemp1:298.15 refers to (DiegoHouse:"maxTemp1")(ConditionedHouse:"maxTemp1")
+		minTemp1:293.15 refers to (DiegoHouse:"minTemp1")(ConditionedHouse:"minTemp1")
+		maxTemp2:298.15 refers to (DiegoHouse:"maxTemp2")(ConditionedHouse:"maxTemp2")
+		minTemp2:293.15 refers to (DiegoHouse:"minTemp2")(ConditionedHouse:"minTemp2")
+		maxTemp3:298.15 refers to (DiegoHouse:"maxTemp3")(ConditionedHouse:"maxTemp3")
+		minTemp3:293.15 refers to (DiegoHouse:"minTemp3")(ConditionedHouse:"minTemp3")
+		Temp1_a:294.15 refers to (DiegoHouse:"Temp1")
+		Temp2_a:294.15 refers to (DiegoHouse:"Temp2")
+		Temp3_a:294.15 refers to (DiegoHouse:"Temp3")
+		Temp1_b:294.15 refers to (ConditionedHouse:"Temp1")
+		Temp2_b:294.15 refers to (ConditionedHouse:"Temp2")
+		Temp3_b:294.15 refers to (ConditionedHouse:"Temp3")
+		//Initial values of the controller's command
+		Pow1_a:0. refers to (DiegoHouse:"Pow1")
+		Pow2_a:0. refers to (DiegoHouse:"Pow2")
+		Pow3_a:0. refers to (DiegoHouse:"Pow3")
+		Pow1_b:0. refers to (ConditionedHouse:"Pow1")
+		Pow2_b:0. refers to (ConditionedHouse:"Pow2")
+		Pow3_b:0. refers to (ConditionedHouse:"Pow3")
+		
+		//Maximum power allowed
+		maxPow1:250. refers to (DiegoHouse:"maxPow1")(ConditionedHouse:"maxPow1")
+		maxPow2:125. refers to (DiegoHouse:"maxPow2")(ConditionedHouse:"maxPow2")
+		maxPow3:125. refers to (DiegoHouse:"maxPow3")(ConditionedHouse:"maxPow3")
+		//Represents the time between each controller's command
+		step:720. refers to (DiegoHouse:"step")(ConditionedHouse:"step")
+	outputs 
+		T1_a:Double refers to (DiegoHouse:"T1")
+		T2_a:Double refers to (DiegoHouse:"T2")
+		T3_a:Double refers to (DiegoHouse:"T3")
+		T1_b:Double refers to (ConditionedHouse:"T1")
+		T2_b:Double refers to (ConditionedHouse:"T2")
+		T3_b:Double refers to (ConditionedHouse:"T3")
+		Text:Double refers to (Weather:"AirTemperatureWs")
+		Pow1_a:Double refers to (DiegoHouse:"Pow1")
+		Pow2_a:Double refers to (DiegoHouse:"Pow2")
+		Pow3_a:Double refers to (DiegoHouse:"Pow3")
+		Pow1_b:Double refers to (ConditionedHouse:"Pow1")
+		Pow2_b:Double refers to (ConditionedHouse:"Pow2")
+		Pow3_b:Double refers to (ConditionedHouse:"Pow3")
+	
+internal couplings
+	{Weather."AirTemperatureWs" -> DiegoHouse."Text" 
+		event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15 //Convert C to K
+	}
+//	{Weather."GlobalRadianceWs" -> House."FluxS"}
+//	{Weather."GlobalRadianceWs" -> House."FluxO"}
+	
+	{Weather."AirTemperatureWs" -> ConditionedHouse."Text" 
+		event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15 //Convert C to K
+	}
+//	{Weather."GlobalRadianceWs" -> ConditionedHouse."FluxS"}
+//	{Weather."GlobalRadianceWs" -> ConditionedHouse."FluxO"}
+	
+
+information
+	keywords "Use case" "TP" "ENSEM" "Hierarchy" "Comparison" "Smart heating"
+	description "Example used to get ENSEM students in touch with co-simulation concepts.
+"
+
+simulator
+	simulation variables
+		//For FMU, these are the three simulation variables, they are all mandatory.
+		stopTime:604800. refers to (DiegoHouse:"stopTime") (ConditionedHouse:"stopTime") (Weather:"stopTime")
+		timeStep:360.  refers to (DiegoHouse:"timeStep")(ConditionedHouse:"timeStep") //Time step for the House simulation
+ 		commStep:1  refers to (DiegoHouse: "communicationStep")(ConditionedHouse: "communicationStep") // Number of time steps between each communication time, keep 1.

@@ -1,0 +1,60 @@
+multimodel HouseJavaController
+submodels 
+	name House path "My Models/fmu/TP_Thermique_ENSEM_BuildSysProVersion_HouseFmu_v7.fmu"
+	name Controller path "Library/Basic/ControllerJava.xml" 
+interface 
+	parameters 
+		//Initial value for the House
+		Tinit:298.15 refers to (House:"Tinit") //inside the rooms
+		TextInit:298.15 refers to (House:"TextInit") //on the outer face of walls (keep this equal to Tinit)
+		//Controller parameters
+		maxTemp1:298.15 refers to (Controller:"maxTemp1")
+		minTemp1:293.15 refers to (Controller:"minTemp1")
+		maxTemp2:298.15 refers to (Controller:"maxTemp2")
+		minTemp2:293.15 refers to (Controller:"minTemp2")
+		maxTemp3:298.15 refers to (Controller:"maxTemp3")
+		minTemp3:293.15 refers to (Controller:"minTemp3")
+		Temp1:294.15 refers to (Controller:"Temp1")
+		Temp2:294.15 refers to (Controller:"Temp2")
+		Temp3:294.15 refers to (Controller:"Temp3")
+		//Initial values of the controller's command
+		Pow1:0. refers to (Controller:"Pow1")
+		Pow2:0. refers to (Controller:"Pow2")
+		Pow3:0. refers to (Controller:"Pow3")
+		//Maximum power allowed
+		maxPow1:250. refers to (Controller:"maxPow1")
+		maxPow2:125. refers to (Controller:"maxPow2")
+		maxPow3:125. refers to (Controller:"maxPow3")
+		//Represents the time between each controller's command
+		step:720. refers to (Controller:"step") //Time between each order of the controller
+	inputs
+		Text:Double refers to (House:"Text")
+		FluxS:Double refers to (House:"FluxS")
+		FluxE:Double refers to (House:"FluxE")
+		FluxO:Double refers to (House:"FluxO")
+		FluxN:Double refers to (House:"FluxN")
+	outputs 
+		T1:Double refers to (House:"T1")
+		T2:Double refers to (House:"T2")
+		T3:Double refers to (House:"T3")
+		Pow1:Double refers to (Controller:"Pow1_out")
+		Pow2:Double refers to (Controller:"Pow2_out")
+		Pow3:Double refers to (Controller:"Pow3_out")
+internal couplings
+	{Controller."Pow1_out"->House."Pow1" event operation "mecsycoscholar.application.ensem.operation.MultiplyDoubleOperation" arg=-1.}
+	{Controller."Pow2_out"->House."Pow2" event operation "mecsycoscholar.application.ensem.operation.MultiplyDoubleOperation" arg=-1.}
+	{Controller."Pow3_out"->House."Pow3" event operation "mecsycoscholar.application.ensem.operation.MultiplyDoubleOperation" arg=-1.}
+	{House."T1"->Controller."Temp1"}
+	{House."T2"->Controller."Temp2"}
+	{House."T3"->Controller."Temp3"}
+information
+	keywords "Use case" "TP" "ENSEM" "Smart heating"
+	description "Example used to get ENSEM students in touch with co-simulation concepts.
+This multimodel represents a house (FMU) with an air conditioner (Java)."
+simulator
+	simulation variables
+		//For FMU, these are the three simulation variables, they are all mandatory.
+		stopTime:604800. refers to (House:"stopTime") (Controller:"stopTime")
+		timeStep:360.  refers to (House:"timeStep") //Time step for the House simulation
+ 		communicationStep:1  refers to (House: "communicationStep") // Number of time steps between each communication time, keep 1.
+

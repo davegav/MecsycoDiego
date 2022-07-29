@@ -1,0 +1,35 @@
+model RandomWalk version "1.0"
+path "My Models/netlogo/random_walk.nlogo"
+interface
+	parameters 
+		//Model parameters with their commands
+		//All values are changed integrated as String in the corresponding command
+		g_count :100 command "set g-count %s" //Number of turtles at the beginning
+		g_size :2 command "set g-size %s" //Turtle size 
+		g_color:55. command "set g-color %s" //Color as double (see color handling in NetLogo)
+	inputs
+		//In random walk, multimodel, we want to send the turtles on the outer edge in another model
+		//Case 1, we receive a list of list of turtles' attributes, it is used to re-create these turtles in this model
+		in1 : Vector<String, String> loop command "create-turtles 1 [setxy 0 0 set size %s set color %s ]"
+		//Case 2, we receive a Tuple of three elements, number of turtles to send, their size and their color (same for each turtle)
+		in2 : Tuple(Double, Double, Double) command "create-turtles %s [setxy 0 0 set size %s set color %s]"
+	outputs 
+		//In random walk, multimodel, we want to send the turtles on the outer edge in another model
+		//Case 1, we send a list of list of turtles' attributes, it can be used to re-create these turtles in another model
+		out1 : Vector<String, String> report TurtleSet ["size", "color"] "turtles with [hidden?]" 
+		//Case 2, we send a Tuple of three elements, number of turtles to send, their size and their color (same for each turtle)
+		out2 : Tuple(Double, Double, Double) report Double "count turtles with [hidden?]" report Double "g-size" report Double "g-color"
+		nbTurtle : Double report Double "count turtles with [not hidden?]"
+information
+	keywords
+		"Random walk"
+		"NetLogo"
+	description
+		"This model represents the Random walk example of MECSYCO, it is an example of the integration of a NetLogo model in a co-simulation."
+simulator
+	simulation variables
+		//Simulation variables, they are linked to model artifact implementation, always the same for a same model artifact.
+		stopTime: 10000. //Stop time of the simulation;
+		discretization: 1. //Link between a NetLogo tick and the time of the co-simulation;
+		windowHeight:520 //Window height
+		windowWidth:520 //Window width

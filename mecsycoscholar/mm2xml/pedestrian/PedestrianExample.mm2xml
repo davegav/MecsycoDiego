@@ -1,0 +1,35 @@
+multimodel PedestrianExample version "1.0"
+
+submodels 
+	name Pedestrian1 path "Library/NetLogo/Pedestrian.xml"
+	name Pedestrian2 path "Library/NetLogo/Pedestrian.xml"
+	name Pedestrian3 path "Library/NetLogo/Pedestrian.xml" 
+
+interface
+
+	parameters 
+		g_count :7 refers to (Pedestrian1: "g_count") (Pedestrian2: "g_count") (Pedestrian3: "g_count") 
+		g_size1 :3 refers to (Pedestrian1: "g_size")
+		g_shape1 :"bug" refers to (Pedestrian1: "g_shape")
+		g_color1 :55 refers to (Pedestrian1: "g_color")
+		g_size2 :7 refers to (Pedestrian2: "g_size")
+		g_shape2 :"turtle" refers to (Pedestrian2: "g_shape")
+		g_color2 :15 refers to (Pedestrian2: "g_color")
+		g_size3 :5 refers to (Pedestrian3: "g_size")
+		g_shape3 :"butterfly" refers to (Pedestrian3: "g_shape")
+		g_color3 :105 refers to (Pedestrian3: "g_color")
+		
+	outputs
+		out1:Double refers to (Pedestrian1:"nbHiddenTurtles")
+		out2:Double refers to (Pedestrian2:"nbHiddenTurtles")
+		out3:Double refers to (Pedestrian3:"nbHiddenTurtles")
+		
+internal couplings 
+	{Pedestrian1."right_out" -> Pedestrian2."left_in"}
+	{Pedestrian2."right_out" -> Pedestrian3."left_in"}
+	{Pedestrian3."right_out" -> Pedestrian2."left_in"}
+
+simulator
+	simulation variables 
+	stopTime:1000.  refers to (Pedestrian1: "stopTime") (Pedestrian2: "stopTime") (Pedestrian3: "stopTime") 
+  	discretization: 1.  refers to (Pedestrian1: "discretization") (Pedestrian2: "discretization") (Pedestrian3: "discretization") 

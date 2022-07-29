@@ -1,0 +1,25 @@
+co-simulation TestWolfSheepPredationWithHeavenExperiment
+
+model path "Library/Multimodel/WolfSheepPredationWithHeaven.xml"
+
+parameters
+	g_shape="airplane"
+	g_color=105 
+	grass=true 
+	grass_regrowth_time = 10 
+	initial_number_sheep = 100 
+	initial_number_wolves = 50 
+	initial_number_sheep_heaven = 0 
+	initial_number_wolves_heaven = 0
+
+information keywords "NetLogo" "Multi-agent"
+description "Multimodel used to show illustrate the NetLogo model artifact and the ability to move agents from one model to another.
+There is three NetLogo models, the first one is a standard NetLogo wolf-sheep predation model. 
+Each sheep which arrives at the right side of the world is captured and sent to the second model.
+The second model is a NetLogo pedestrian model, it represents the previous sheep transport to the third model.
+This last model, called heaven model, is a NetLogo wolf-sheep predation models without wolves."
+
+simulation
+	parameters
+		stopTime= 10.
+		discretization= 1.

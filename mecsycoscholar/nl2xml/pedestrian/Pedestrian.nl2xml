@@ -1,0 +1,29 @@
+model Pedestrian version "1.0"
+path "My Models/netLogo/pedestrian.nlogo" 
+interface
+	parameters 
+		g_count :5 command "set g-count %s"
+		g_size :5 command "set g-size %s"
+		g_shape :"bug" command "set g-shape \"%s\"" //Shape of pedestrian "bug", "butterfly" ou "turtle"
+		g_color:55 command "set g-color %s"
+	inputs
+		test_in : Integer command "create-pedestrians 1 [setxy 0 0 set color 45 set shape \"%s\" set size 3]" command "create-pedestrians 1 [setxy 0 0 set color 45 set shape \"truck\" set size %s]"
+		left_in : Vector<String,String,String,String,String> loop command "create-pedestrians 1 [setxy 0 %s set color %s set heading %s set size %s set shape \"%s\"]"
+		
+		input_juju : Integer command "create-pedestrians %s [setxy 0 random g-world-width set color g-color set size g-size set shape g-shape]"
+	outputs 
+		test_out:Vector<String> report String "g-shape" report Double "g-size" 
+		 right_out : Vector<String,String,String,String,String> report TurtleSet ["ycor", "color", "heading", "size", "shape"] "pedestrians with [hidden?]" 
+		 nbHiddenTurtles : Double report Double "count turtles with [hidden?]"
+information
+	keywords
+		"Pedestrian"
+		"NetLogo"
+	description
+		"This model represents the Pedestrian system example of NetLogo, it is an example of the integration of a NetLogo model in a co-simulation."
+simulator
+	simulation variables
+		stopTime: 1000.
+		discretization: 1.
+		windowHeight:480
+		windowWidth:480 

@@ -1,0 +1,24 @@
+co-simulation TestExperimentHybridHighwayMicroEvent
+
+model path "Library/Multimodel/HybridHighway_Micro_Event.xml"
+	parameters
+		//Event
+		road_length=2.
+		max_speed=90.
+		min_speed=50.
+		initial_car_number=20 
+		headless=false
+	
+	information
+		description "Experiment on hybrid highway, but just micro and event models, same parameters as in Benjamin Camus' thesis.
+This second hybrid highway model shows the modularity of MECSYCO integrated models.
+Only two models, one NetLogo and one Java ad-hoc."
+		
+	simulation parameters
+		stopTime=0.0004
+		stopTimeMicro=10. //stopTime : 0.00004
+		startTime=0.
+		microHeight=230
+		microWidth=1250
+		minPropagationDelayEventModel=0.022222222222222223 //road_length : max_speed
+		autoCloseGui=true

@@ -1,0 +1,69 @@
+multimodel ComparisonHouseWithAndWithoutAirConditionerMatLab
+
+submodels
+	name House path "My Models/fmu/TP_Thermique_ENSEM_BuildSysProVersion_HouseFmu_v7.fmu"
+	name ConditionedHouse path "Library/Multimodel/HouseMatLabController.xml" 
+	name Weather path "Library/Basic/WeatherData.xml"
+
+interface
+	parameters
+		//Initial value for the House
+		Tinit:298.15 refers to (House:"Tinit")(ConditionedHouse:"Tinit") //inside the rooms
+		TextInit:298.15 refers to (House:"TextInit")(ConditionedHouse:"TextInit") //on the outer face of walls (keep this equal to Tinit)
+		
+		//Controller parameters
+		maxTemp1:298.15 refers to (ConditionedHouse:"maxTemp1")
+		minTemp1:293.15 refers to (ConditionedHouse:"minTemp1")
+		maxTemp2:298.15 refers to (ConditionedHouse:"maxTemp2")
+		minTemp2:293.15 refers to (ConditionedHouse:"minTemp2")
+		maxTemp3:298.15 refers to (ConditionedHouse:"maxTemp3")
+		minTemp3:293.15 refers to (ConditionedHouse:"minTemp3")
+		Temp1:294.15 refers to (ConditionedHouse:"Temp1")
+		Temp2:294.15 refers to (ConditionedHouse:"Temp2")
+		Temp3:294.15 refers to (ConditionedHouse:"Temp3")
+		//Initial values of the controller's command
+		Pow1:0. refers to (ConditionedHouse:"Pow1")
+		Pow2:0. refers to (ConditionedHouse:"Pow2")
+		Pow3:0. refers to (ConditionedHouse:"Pow3")
+		//Maximum power allowed
+		maxPow1:250. refers to (ConditionedHouse:"maxPow1")
+		maxPow2:125. refers to (ConditionedHouse:"maxPow2")
+		maxPow3:125. refers to (ConditionedHouse:"maxPow3")
+		//Represents the time between each controller's command
+		step:720. refers to (ConditionedHouse:"step")
+	outputs 
+		T1_a:Double refers to (House:"T1")
+		T2_a:Double refers to (House:"T2")
+		T3_a:Double refers to (House:"T3")
+		T1_b:Double refers to (ConditionedHouse:"T1")
+		T2_b:Double refers to (ConditionedHouse:"T2")
+		T3_b:Double refers to (ConditionedHouse:"T3")
+		Text:Double refers to (Weather:"AirTemperatureWs")
+		Pow1:Double refers to (ConditionedHouse:"Pow1")
+		Pow2:Double refers to (ConditionedHouse:"Pow2")
+		Pow3:Double refers to (ConditionedHouse:"Pow3")
+	
+internal couplings
+	{Weather."AirTemperatureWs" -> House."Text" 
+		event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15 //Convert C to K
+	}
+//	{Weather."GlobalRadianceWs" -> House."FluxS"}
+//	{Weather."GlobalRadianceWs" -> House."FluxO"}
+	
+	{Weather."AirTemperatureWs" -> ConditionedHouse."Text" 
+		event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15 //Convert C to K
+	}
+//	{Weather."GlobalRadianceWs" -> ConditionedHouse."FluxS"}
+//	{Weather."GlobalRadianceWs" -> ConditionedHouse."FluxO"}
+
+information
+	keywords "Use case" "TP" "ENSEM" "Hierarchy" "Comparison" "Smart heating"
+	description "Example used to get ENSEM students in touch with co-simulation concepts.
+"
+
+simulator
+	simulation variables
+		//For FMU, these are the three simulation variables, they are all mandatory.
+		stopTime:172800. refers to (House:"stopTime") (ConditionedHouse:"stopTime") (Weather:"stopTime")
+		timeStep:360.  refers to (House:"timeStep")(ConditionedHouse:"timeStep") //Time step for the House simulation
+ 		commStep:1  refers to (House: "communicationStep")(ConditionedHouse: "communicationStep") // Number of time steps between each communication time, keep 1.

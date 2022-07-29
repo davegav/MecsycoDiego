@@ -1,0 +1,28 @@
+model ControllerMatlab type "mecsyco.world.matlab.MatlabModelArtifact"
+interface 
+	parameters
+		maxTemp1:298.15 	minTemp1:293.15
+		maxTemp2:298.15		minTemp2:293.15
+		maxTemp3:298.15		minTemp3:293.15
+		Temp1:294.15		Temp2:294.15		Temp3:294.15 
+		Pow1:500.			Pow2:0. 			Pow3:0.
+		maxPow1:500.		maxPow2:250.		maxPow3:250.
+		step:720.
+	inputs
+		Temp1:Double
+		Temp2:Double
+		Temp3:Double
+	outputs
+		Pow1_out:Double
+		Pow2_out:Double
+		Pow3_out:Double
+information 
+	keywords 
+		"Use case" "TP" "ENSEM" "Smart heating" "Controller"
+	description 
+	"Controller model of the TP_ENSEM multimodel. Compliant/exchangeable with the Java one."
+simulator
+	simulation variables
+		stopTime:86400.				timeStep:60.
+		dirPath:"My Models/matlab/"
+		modelName:"controller" 		showMatlab:false	exitOnFinish:true

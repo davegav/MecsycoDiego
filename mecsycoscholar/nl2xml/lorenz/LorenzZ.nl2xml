@@ -1,0 +1,24 @@
+model LorenzZ
+path "My Models/NetLogo/Lorenz-Z.nlogo" 
+interface
+	parameters 
+		c : 2.78 command "set c %s" 
+		x0 : 1.0 command "set X0 %s"
+		y0 : 1.0 command "set Y0 %s"
+		z0 : 4.0 command "set Z0 %s"
+		time_discretization : 0.001 command "set time-discretization %s"
+	inputs
+		//initOption is indicative, if you put "no" instead of "parameter" it also works.
+		x : Integer initOption no command "set x %s"
+		y : Integer initOption no command "set y %s"
+	outputs
+		z : Double initOption no report Double "z" 
+information
+	keywords
+		"Lorenz"
+	description
+		"This model represents the Z equation of the Lorenz system."
+simulator
+	simulation variables
+		stopTime: 10.0
+		discretization: 0.001

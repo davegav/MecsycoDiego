@@ -1,0 +1,12 @@
+
+<included>
+	<logger name="mecsyco.magent" level="${M_AGENT_LOGGING_LEVEL}"/>
+	<logger name="mecsyco.artifact.interface" level="${INTERFACE_LOGGING_LEVEL}"/>
+	<logger name="mecsyco.artifact.coupling" level="${COUPLING_LOGGING_LEVEL}"/>
+
+	<!-- Extra loggers 
+		e.g
+		<logger name="mecsyco.artifact.coupling.reader.dds" level="debug"/>
+	-->
+
+</included>

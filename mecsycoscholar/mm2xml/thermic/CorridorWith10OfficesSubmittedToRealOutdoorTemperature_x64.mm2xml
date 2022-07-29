@@ -1,0 +1,74 @@
+multimodel CorridorWith10OfficesSubmittedToRealOutdoorTemperature_x64
+	submodels 
+		name Floor path "Library/Multimodel/CorridorWith10Offices_x64.xml"
+		name Weather path "Library/Basic/WeatherData.xml" 
+
+	interface
+		parameters 
+		//HeatedRoom 
+			VolumeOffices:30. refers to (Floor: "VolumeOffices")//Volume of the room
+			VolumeCorridor:225 refers to (Floor:"VolumeCorridor")
+			VolumicHeatCapacityOffices:8000. refers to (Floor: "VolumicHeatCapacityOffices")//Volumic heat capacity of the room
+			VolumicHeatCapacityCorridor:4000. refers to (Floor:"VolumicHeatCapacityCorridor")
+			TextInit: 288.15 refers to (Floor: "TextInit") //Initial temperature of the exterior
+			Tinit: 293.15 refers to (Floor: "Tinit")
+			Twanted:293.15 refers to (Floor: "Twanted")
+			tolerance:1. refers to (Floor:"tolerance")
+			maxHeatflow:150. refers to (Floor: "maxHeatflow")
+			maxHeatflowCorridor:450. refers to (Floor:"maxHeatflowCorridor")
+			//Walls
+			SOuterWalls2To9:7.5 refers to (Floor:"SOuterWalls2To9") 
+			SOuterWalls1And10:17.5 refers to (Floor:"SOuterWalls1And10") 
+			SOuterWallCorridor:95. refers to (Floor:"SOuterWallCorridor")
+			OuterWallLambda:0.7 refers to (Floor: "OuterWallLambda")  //Thermic resistance of the outer walls
+			InnerWallLambda:0.3 refers to (Floor:"InnerWallLambda")		
+			//Outdoor temperature (real data) 
+			dbName:"stationMeteo.db" refers to (Weather:"dbName")
+			startDate:"2018-08-01" refers to (Weather:"startDate")
+			endDate:"2018-08-02" refers to (Weather:"endDate")
+		
+		
+		outputs
+			TOffice1:Double refers to (Floor:"TOffice1")
+			TOffice2:Double refers to (Floor:"TOffice2")
+			TOffice3:Double refers to (Floor:"TOffice3")
+			TOffice4:Double refers to (Floor:"TOffice4")
+			TOffice5:Double refers to (Floor:"TOffice5")
+			TOffice6:Double refers to (Floor:"TOffice6")
+			TOffice7:Double refers to (Floor:"TOffice7")
+			TOffice8:Double refers to (Floor:"TOffice8")
+			TOffice9:Double refers to (Floor:"TOffice9")
+			TOffice10:Double refers to (Floor:"TOffice10")
+			TCorridor:Double refers to (Floor:"TCorridor")
+			PowerConsumed1:Double refers to (Floor:"PowerConsumed1")
+			PowerConsumed2:Double refers to (Floor:"PowerConsumed2")
+			PowerConsumed3:Double refers to (Floor:"PowerConsumed3")
+			PowerConsumed4:Double refers to (Floor:"PowerConsumed4")
+			PowerConsumed5:Double refers to (Floor:"PowerConsumed5")
+			PowerConsumed6:Double refers to (Floor:"PowerConsumed6")
+			PowerConsumed7:Double refers to (Floor:"PowerConsumed7")
+			PowerConsumed8:Double refers to (Floor:"PowerConsumed8")
+			PowerConsumed9:Double refers to (Floor:"PowerConsumed9")
+			PowerConsumed10:Double refers to (Floor:"PowerConsumed10")
+			PowerConsumedCorridor:Double refers to (Floor:"PowerConsumedCorridor")
+			OutTemp:Double refers to (Weather:"AirTemperatureWs")
+	
+	internal couplings
+		{Weather."AirTemperatureWs" -> Floor."Text1" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text2" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text3" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text4" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text5" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text6" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text7" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text8" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text9" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."Text10" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+		{Weather."AirTemperatureWs" -> Floor."TextCorridor" event operation "mecsycoscholar.application.ensem.operation.AddDoubleOperation" arg=273.15}
+	simulator
+		simulation variables
+			stopTime:86400. refers to (Floor:"stopTime") (Weather:"stopTime")
+			timeStep:60. refers to (Floor:"timeStep")
+			startTime:0. refers to (Floor:"startTime") (Weather:"startTime")
+
+	

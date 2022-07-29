@@ -1,0 +1,32 @@
+co-simulation RandomWalkExperiment
+//Name the co-simulation, the generated file will be named after that
+//Choice of the model/multi-model to simulate
+model path "Library/Multimodel/RandomWalkMM.xml"
+
+//Parameter choice for this experiment
+parameters
+	g_count=200 
+	g_size1=2
+	g_size2=4 
+	g_color1=55 
+	g_color2=15
+	
+//Observing artifact choice, here a simple timed graphic which has two prameters
+observing artifact TX ports nbTurtle1 nbTurtle2
+	display live //Display at the same time of the co-simulation, or postmortem to display after the end
+	renderer Step //Step, Line of Dot
+	
+information
+	keywords
+		"Random walk"
+	description 
+		"Mecsycoscholar experiment of a multimodel composed of two random walk models interconnected.
+Basic MECSYCO multimodel used for tutorial, it contains two NetLogo random walk models."
+		
+
+//Set simulation parameters
+simulation parameters
+	stopTime= 1000. //Stop time of the simulation;
+	discretization= 1. //Link between a NetLogo tick and the time of the co-simulation;
+	windowHeight=520 //Window height
+	windowWidth=520 //Window width

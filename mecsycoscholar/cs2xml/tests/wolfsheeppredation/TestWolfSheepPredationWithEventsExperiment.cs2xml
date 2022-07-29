@@ -1,0 +1,19 @@
+co-simulation TestWolfSheepPredationWithEventsExperiment
+
+model path "Library/Multimodel/WolfSheepPredationWithEvents.xml"
+
+parameters
+	grass=true
+	grass_regrowth_time = 30 
+	initial_number_sheep = 100 
+	initial_number_wolves = 50
+
+information
+	keywords "NetLogo" "Predation" "CSV"
+	description 
+	"Wolf-sheep predation model with several event to exemplify the possibility of the NetLogo model artifact. 
+Several events will occur, the creation of sheep at 100 to simulate the arrival of a herd, death of several wolves at tick 177 to simulate a wolf hunt, and finally an increase of the grass regrowth time at 400."
+simulation
+	parameters
+		stopTime= 500.
+		discretization= 1.

@@ -1,0 +1,29 @@
+model LorenzX
+path "My Models/NetLogo/Lorenz-X.nlogo" 
+interface
+	parameters 
+		a : 10.0 command "set a %s" 
+		//Parameters which are used to set the initial values of X and Y in the setup method
+		x0 : 1.0 command "set X0 %s"
+		y0 : 1.0 command "set Y0 %s"
+		/* There is an Euler solver in this NetLogo Model, this is the dt
+		 * It should be equals to the "discretization" simulation parameter.
+		 */
+		time_discretization : 0.001 command "set time-discretization %s" 
+	inputs
+		//Name of the input port : Type 
+		//initialization option -> yes parameter as you can choose the initial value of Y with the parameter Y0
+		//initOption is indicative, "parameter" means that a parameter is available to choose the initial value of this port.
+		y : Integer initOption parameter command "set y %s"
+	outputs
+		x : Double initOption parameter report Double "x" 
+information
+	keywords
+		"Lorenz"
+	description
+		"This model represents the X equation of the Lorenz system."
+simulator
+	simulation variables
+		//The simulation variables are linked to the implementation of the model artifact, there are always the same names for the same model artifact. (It also depends on the implementation of the classe that read the XML file).
+		stopTime: 10. //End simulation time, this parameter is mandatory
+		discretization:  0.001 //Value of time (for the co-simulation) of one NetLogo tick for this model.

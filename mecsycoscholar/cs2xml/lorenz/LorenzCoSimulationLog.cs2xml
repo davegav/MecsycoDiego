@@ -1,0 +1,28 @@
+co-simulation LorenzCoSimulationLog
+model
+	path "Library/Multimodel/LorenzMultimodel.xml"
+	parameters
+		a=10.
+		b=28.
+		c=2.67 
+		x_init=2.
+		y_init=2. 
+		z_init=8. 
+observing 
+	artifact "mecsyco.observing.base.logging.SingleFileLoggingArtifact"
+	ports x y z
+	links	{"x"->x} {"y"->y} {"z"->z}
+	settings filePath="data_log/Lorenz.csv"
+	artifact "mecsyco.observing.base.storage.StorageObservingArtifact"
+	ports x y z
+	links	{"x"->x} {"y"->y} {"z"->z}
+
+information 
+	keywords "Lorenz" "Chaotic" "FMU"
+	description "Simple example of Lorenz co-simulation with FMU. Each FMU represents one equation of the Lorenz System."
+
+simulation
+	parameters
+		stopTime=10.
+		timeStep=0.01
+		commStep=1

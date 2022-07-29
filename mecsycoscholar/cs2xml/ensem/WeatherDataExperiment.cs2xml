@@ -1,0 +1,33 @@
+co-simulation WeatherDataExperiment
+model path "Library/Basic/WeatherData.xml"
+
+observing 
+	artifact "mecsyco.observing.jfreechart.xy.LiveTXTimeGraphic"
+		ports 
+			AirTemperatureWs
+			AirTemperatureEE
+		links
+			{"AirTemperatureEE" ->AirTemperatureEE}
+			{"AirTemperatureWs" ->AirTemperatureWs} 
+		settings
+			dateFormat="yyyy-MM-dd HH:mm:ss" displayDateFormat="dd MMM HH:mm" scale="SECOND" Xaxis="" Yaxis="Temperature in Celsius" render="Step"
+			startDate="2019-08-01 14:00:00" //startDate is useful for undated data
+			//year=2019 month=9 day=1 hour=14 minute=0 second=0
+			/*Settings need the format of the date (Java Simple Date standard format), the representation of the time (scale = SECOND, MINUTE, HOUR, DAY ?)
+			 * The names to display for the axis
+			 * And the date of the beginning of the graph.
+			*/
+	artifact "mecsyco.observing.jfreechart.xy.LiveTXTimeGraphic"
+		ports 
+			GlobalRadianceWs
+		links
+			{"GlobalRadianceWs" ->GlobalRadianceWs}
+		settings
+			dateFormat="yyyy-MM-dd HH:mm:ss" displayDateFormat="dd MMM HH:mm" scale="SECOND" Xaxis="" Yaxis="Radiance" render="Step"
+			startDate="2019-08-01 14:00:00"
+
+information description "Model used to check the data inside a weather CSV. Just one CSV as source model."			
+
+simulation parameters
+	startTime=0. 
+	stopTime=864000. //1 days = 1 * 86400 seconds

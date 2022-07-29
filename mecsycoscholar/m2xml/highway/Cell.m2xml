@@ -1,0 +1,29 @@
+model Cell type "mecsycoscholar.application.highway.model.equation.CellModelArtifact"
+
+interface
+	parameters
+	length:0.2 //Lenght of the road is 0.2 km
+    density:30.       speed:70.
+    free_speed:100.   capacity:1800.
+    nb_voie:3         tau:1.
+    kappa:1.          nu:1.
+    nbCells:5         delay:1
+	critical_density:45.
+	inputs
+		upstream:Tuple(Double, Double, Double) //(flow, speed, ...)
+		downstream:Tuple(Double, Double, Double) //(..., ..., density)
+	outputs
+		observation:Double 
+		upstream:Tuple(Double, Double, Double) //outDensity (..., ..., density)
+		downstream:Tuple(Double, Double, Double) //outFlow (flow, speed, ...)
+
+information
+	description "Cell model used in the hybrid highway example for the MECSYCO middleware. 
+The explanation can be found in the PhD Thesis of Benjamin Camus."
+
+simulator
+	simulation variables
+		stopTime:1.
+		startTime:0.
+		time_step:0.0001
+		autoCloseGui:false
